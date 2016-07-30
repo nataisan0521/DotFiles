@@ -86,7 +86,7 @@ call dein#begin(expand('~/.cache/dein'))
 
 " Let dein manage deine
 let s:toml = '~/.dein.toml'
-
+let s:lazy_toml = '~/.dein_lazy.toml
 " Required:
 call dein#add('Shougo/dein.vim')
 
@@ -99,6 +99,7 @@ call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
 
 " toml読み込み
 call dein#load_toml(s:toml, {'lazy': 0})
+call dein#load_toml(s:lazy_toml, {'lazy': 1})
 
 " Required:
 call dein#end()
