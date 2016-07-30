@@ -23,6 +23,9 @@ repo = 'Shougo/unite.vim'
 repo = 'Shougo/neomru.vim'
 
 [[plugins]]
+repo = 'osyo-manga/unite-filetype'
+
+[[plugins]]
 repo = 'scrooloose/nerdtree'
 
 [[plugins]]
@@ -40,5 +43,21 @@ repo  = 'mattn/emmet-vim'
 [[plugins]]
 repo = 'Shougo/neocomplete.vim'
 
+[[plugins]]
+repo = 'itchyny/lightline.vim'
 
+[[plugins]]
+repo = 'bronson/vim-trailing-whitespace'
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'othree/html5.vim'
+
+[[plugins]]
+repo = 'hail2u/vim-css3-syntax'
+
+[[plugins]]
+repo = 'jelera/vim-javascript-syntax'
 

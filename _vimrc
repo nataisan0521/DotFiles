@@ -121,7 +121,7 @@ colorscheme molokai
 "
 " NERDTreeの設定
 let g:NERDTreeShowBookmarks=1
-nnoremap <C-j> :NERDTree<CR>
+nnoremap <C-n> :NERDTree<CR>
 
 "" unite.vim {{{
 " The prefix key.
@@ -131,7 +131,7 @@ nmap    <Leader>f [unite]
 " unite.vim keymap
 " https://github.com/alwei/dotfiles/blob/3760650625663f3b08f24bc75762ec843ca7e112/.vimrc
 nnoremap [unite]u  :<C-u>Unite -no-split<Space>
-nnoremap <silent> [unite]f :<C-u>Unite<Space>buffer<CR>
+nnoremap <silent> [unite]f :<C-u>Unite<Space>file<CR>
 nnoremap <silent> [unite]b :<C-u>Unite<Space>bookmark<CR>
 nnoremap <silent> [unite]m :<C-u>Unite<Space>file_mru<CR>
 nnoremap <silent> [unite]r :<C-u>UniteWithBufferDir file<CR>
