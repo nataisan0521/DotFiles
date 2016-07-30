@@ -34,3 +34,11 @@ repo = 'tomasr/molokai'
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
 
+[[plugins]]
+repo  = 'mattn/emmet-vim'
+
+[[plugins]]
+repo = 'Shougo/neocomplete.vim'
+
+
+

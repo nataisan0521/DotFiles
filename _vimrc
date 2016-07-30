@@ -1,6 +1,4 @@
 " setting
-" Lerderをspaseにする
-let mapleader = "\<Space>"
 
 " 文字コードをUTF-8に指定
 set fenc=utf-8
@@ -86,7 +84,6 @@ call dein#begin(expand('~/.cache/dein'))
 
 " Let dein manage deine
 let s:toml = '~/.dein.toml'
-let s:lazy_toml = '~/.dein_lazy.toml
 " Required:
 call dein#add('Shougo/dein.vim')
 
@@ -99,7 +96,6 @@ call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
 
 " toml読み込み
 call dein#load_toml(s:toml, {'lazy': 0})
-call dein#load_toml(s:lazy_toml, {'lazy': 1})
 
 " Required:
 call dein#end()
@@ -163,3 +159,12 @@ let g:unite_source_grep_max_candidates = 200
 " https://github.com/shingokatsushima/dotfiles/blob/master/.vimrc
 vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
 " }}}
+
+let g:user_emmet_leader_key='<c-e>'
+let g:user_emmet_settings = {
+    \    'variables': {
+    \      'lang': "ja"
+    \    },
+    \   'indentation': '  '
+    \ }
+
