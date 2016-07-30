@@ -170,3 +170,15 @@ let g:user_emmet_settings = {
     \   'indentation': '  '
     \ }
 
+" コマンドメニュー
+let g:unite_source_menu_menus = {
+  \ "quickmenu" :{
+    \ "description" : "Quick-Menu",
+    \ "command_candidates" :{
+      \ ["edit vimrc", "edit ~/dotfiles/_vimrc"],
+      \ ["edit dein.toml","edit ~/dotfiles/_dein.toml"],
+      \ ["Source vimrc", "source $MYVIMRC"],
+      \ ["Cd Documents", "!cd ~/Documents"],
+    },
+  },
+},
