@@ -159,6 +159,12 @@ if has('win32') || has('win64')
 else
     call unite#custom#substitute('file', '^;v', '~/.vim/')
 endif
+let g:unite_source_grep_command = 'ag'
+let g:unite_source_grep_default_opts = '--nocolor --nogroup'                            
+let g:unite_source_grep_max_candidates = 200
+let g:unite_source_grep_recursive_opt = ''
+" unite-grepの便利キーマップ
+vnoremap /g y:Unite grep::-iRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
 " fugitiveの設定
 " ステータス行に現在のgitブランチを表示する
  set statusline+=%{fugitive#statusline()}
