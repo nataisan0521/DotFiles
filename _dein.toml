@@ -30,3 +30,9 @@ repo = 'tpope/vim-fugitive'
 
 [[plugins]]
 repo = 'tomasr/molokai'
+
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+
+[[plugins]]
+repo = 'Shougo/neocomplete.vim'
