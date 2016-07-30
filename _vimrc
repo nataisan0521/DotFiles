@@ -1,5 +1,7 @@
 " setting
 
+"SpaceをLeaderにする
+let mapleader = "\<Space>"
 " 文字コードをUTF-8に指定
 set fenc=utf-8
 " バックアップファイルを作らない
