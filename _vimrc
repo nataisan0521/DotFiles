@@ -123,55 +123,44 @@ colorscheme molokai
 " NERDTreeの設定
 let g:NERDTreeShowBookmarks=1
 nnoremap <C-j> :NERDTree<CR>
-" Uniteの設定
-" 起動キー
-nnoremap  [unite] <Nop>
-nmap      <Leader>f [unite]
-" 入力モードで開始する
-let g:unite_enable_start_insert=1
-" バッファ一覧
-noremap <C-P> :Unite buffer<CR>
-" ファイル一覧
-noremap <C-N> :Unite -buffer-name=file file<CR>
-" 最近使ったファイルの一覧
-noremap <C-Z> :Unite file_mru<CR>
+
+"" unite.vim {{{
+" The prefix key.
+nnoremap    [unite]   <Nop>
+nmap    <Leader>f [unite]
  
-" ウィンドウを分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-au FileType unite inoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-" ウィンドウを縦に分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
-au FileType unite inoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
-" ESCキーを2回押すと終了する
-au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
-au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
-" 初期設定関数を起動する
-au FileType unite call s:unite_my_settings()
-    function! s:unite_my_settings()
-    " Overwrite settings.
-endfunction
+" unite.vim keymap
+" https://github.com/alwei/dotfiles/blob/3760650625663f3b08f24bc75762ec843ca7e112/.vimrc
+nnoremap [unite]u  :<C-u>Unite -no-split<Space>
+nnoremap <silent> [unite]f :<C-u>Unite<Space>buffer<CR>
+nnoremap <silent> [unite]b :<C-u>Unite<Space>bookmark<CR>
+nnoremap <silent> [unite]m :<C-u>Unite<Space>file_mru<CR>
+nnoremap <silent> [unite]r :<C-u>UniteWithBufferDir file<CR>
+nnoremap <silent> ,vr :UniteResume<CR>
  
-" 様々なショートカット
-call unite#custom#substitute('file', '\$\w\+', '\=eval(submatch(0))', 200)
-call unite#custom#substitute('file', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/"', 2)
-call unite#custom#substitute('file', '^@', '\=getcwd()."/*"', 1)
-call unite#custom#substitute('file', '^;r', '\=$VIMRUNTIME."/"')
-call unite#custom#substitute('file', '^\~', escape($HOME, '\'), -2)
-call unite#custom#substitute('file', '\\\@<! ', '\\ ', -20)
-call unite#custom#substitute('file', '\\ \@!', '/', -30)
+" vinarise
+let g:vinarise_enable_auto_detect = 1
  
-if has('win32') || has('win64')
-    call unite#custom#substitute('file', '^;p', 'C:/Program Files/')
-    call unite#custom#substitute('file', '^;v', '~/vimfiles/')
-else
-    call unite#custom#substitute('file', '^;v', '~/.vim/')
-endif
-let g:unite_source_grep_command = 'ag'
-let g:unite_source_grep_default_opts = '--nocolor --nogroup'                            
-let g:unite_source_grep_max_candidates = 200
-let g:unite_source_grep_recursive_opt = ''
-" unite-grepの便利キーマップ
-vnoremap /g y:Unite grep::-iRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
+" unite-build map
+nnoremap <silent> ,vb :Unite build<CR>
+nnoremap <silent> ,vcb :Unite build:!<CR>
+nnoremap <silent> ,vch :UniteBuildClearHighlight<CR>
+"" }}}
+
 " fugitiveの設定
 " ステータス行に現在のgitブランチを表示する
 let statusline+=%{fugitive#statusline()}
+
+"" unite-grep {{{
+" unite-grepのバックエンドをagに切り替える
+" http://qiita.com/items/c8962f9325a5433dc50d
+let g:unite_source_grep_command = 'ag'
+let g:unite_source_grep_default_opts = '--nocolor --nogroup'
+let g:unite_source_grep_recursive_opt = ''
+let g:unite_source_grep_max_candidates = 200
+ 
+" unite-grepのキーマップ
+" 選択した文字列をunite-grep
+" https://github.com/shingokatsushima/dotfiles/blob/master/.vimrc
+vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
+" }}}
