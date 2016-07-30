@@ -149,7 +149,9 @@ nnoremap <silent> ,vch :UniteBuildClearHighlight<CR>
 
 " fugitiveの設定
 " ステータス行に現在のgitブランチを表示する
-let statusline+=%{fugitive#statusline()}
+if isdirectory(.git) == 0
+  let statusline+=%{fugitive#statusline()}
+endif
 
 "" unite-grep {{{
 " unite-grepのバックエンドをagに切り替える

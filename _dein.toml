@@ -20,7 +20,7 @@ repo = 'Shougo/neosnippet-snippets'
 repo = 'Shougo/unite.vim'
 
 [[plugins]]
-repo = 'Shogo/neomru.vim'
+repo = 'Shougo/neomru.vim'
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'
