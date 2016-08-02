@@ -34,3 +34,13 @@ repo = 'tpope/vim-surround'
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 
+[[pluins]]
+repo = 'vim-scripts/L9'
+
+[[plugins]]
+repo = 'vim-scripts/FuzzyFinder'
+
+[[plugins]]
+repo = 'glidenote/memolist.vim'
+
+
