@@ -269,7 +269,10 @@ function! LightLineFileencoding()
 endfunction
 
 function! LightLineMode()
-    return winwidth(0) > 60 ? lightline#mode() : ''
+    return  &ft == 'unite' ? 'Unite' :
+          \ &ft == 'vimfiler' ? 'VimFiler' :
+          \ &ft == 'vimshell' ? 'VimShell' :
+          \winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
 "------------------------------------
