@@ -3,9 +3,6 @@
 repo      = 'Shougo/neocomplete.vim'
 on_i      = 1
 
-[[plugins]]
-repo      = 'Shougo/unite.vim'
-on_i      = 1
 # unite.vim を読み込んだら一緒に読み込む
 [[plugins]]
 repo      = 'Shougo/neomru.vim'
