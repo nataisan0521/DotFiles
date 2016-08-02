@@ -1,15 +1,12 @@
 " setting
 "SpaceをLeaderにする
 let mapleader = "\<Space>"
-" backspace on
 set backspace=eol,indent,start
 " 文字コードをUTF-8に指定
 set fenc=utf-8
 scriptencoding utf-8
 set encoding=utf-8
 set guifont=Ricty\ 10
-" vimrc open
-nnoremap <Leader>j :<C-u>tabedit $MYVIMRC<CR>
 " バックアップファイルを作らない
 set nobackup
 " スワップファイルを作らない
@@ -93,16 +90,20 @@ nnoremap っy yy
 ";でコマンドモード起動
 nnoremap ; :
 
+"open vimrc
+nnoremap <Lender>j:<C-u>tabedit $MYVIMRC<CR>
 "dein Scripts-----------------------------
 if &compatible
   set nocompatible               " Be iMproved
 endif
 
-" Required:
+" Required:                    
 set runtimepath^=$HOME/.vim/dein/repos/github.com/Shougo/dein.vim
-" Required:
-call dein#begin(expand('$HOME/.vim/dein')
-" Let dein manage dein
+                                
+" Required:                    
+call dein#begin(expand('$HOME/.vim/dein'))                                                    
+                                
+" Let dein manage deine        
 let s:toml = '$HOME/.dein.toml'
 let s:lazy_toml = '$HOME/.dein_lazy.toml'
 
