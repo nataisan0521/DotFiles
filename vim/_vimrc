@@ -1,6 +1,6 @@
 " setting
 "SpaceをLeaderにする
-let mapleader = "\<Space>"
+let mapleader = "\<space>"
 set backspace=eol,indent,start
 " 文字コードをUTF-8に指定
 set fenc=utf-8
@@ -142,35 +142,11 @@ endif
 " 色の設定
 syntax on
 colorscheme molokai
+set laststatus=2
 set t_Co=256
 highlight Normal ctermbg=none
 let g:lightline = {
-      \ 'colorscheme': 'landscape'
-        \ 'mode_map': {'c': 'NORMAL'},
-        \ 'active': {
-        \   'left': [
-        \     ['mode', 'paste'],
-        \     ['fugitive', 'gitgutter', 'filename'],
-        \   ],
-        \   'right': [
-        \     ['lineinfo', 'syntastic'],
-        \     ['percent'],
-        \     ['charcode', 'fileformat', 'fileencoding', 'filetype'],
-        \   ]
-        \ },
-        \ 'component_function': {
-        \   'modified': 'MyModified',
-        \   'readonly': 'MyReadonly',
-        \   'fugitive': 'MyFugitive',
-        \   'filename': 'MyFilename',
-        \   'fileformat': 'MyFileformat',
-        \   'filetype': 'MyFiletype',
-        \   'fileencoding': 'MyFileencoding',
-        \   'mode': 'MyMode',
-        \   'syntastic': 'SyntasticStatuslineFlag',
-        \   'charcode': 'MyCharCode',
-        \   'gitgutter': 'MyGitGutter',
-        \ },
+      \ 'colorscheme': 'wombat',
       \ 'separator': { 'left': "\u2b80",'right': "\u2b82" },
       \ 'subseparator': { 'left': "\u2b81", 'right': "\u2b83" }
       \ }
@@ -190,9 +166,10 @@ nnoremap <silent> [unite]f :<C-u>Unite<Space>file<CR>
 nnoremap <silent> [unite]b :<C-u>Unite<Space>bookmark<CR>
 nnoremap <silent> [unite]m :<C-u>Unite<Space>file_mru<CR>
 nnoremap <silent> [unite]r :<C-u>UniteWithBufferDir file<CR>
-nnoremap <silent> [unite]ft :<C-u>Unite<Space>filetype<CR>
+nnoremap <silent> [unite]t :<C-u>Unite<Space>filetype<CR>
 nnoremap <silent> [unite]o :<C-u>Unite<Space>outline<CR>
 nnoremap <silent> ,vr :UniteResume<CR>
+
 
 " vinarise
 let g:vinarise_enable_auto_detect = 1
