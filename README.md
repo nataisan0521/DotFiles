@@ -1,2 +1,2 @@
 # Dotfiles
-私が使用している.vimrcとdein.tomlです。
+It is a dotfile that I use
