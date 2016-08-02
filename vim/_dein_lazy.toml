@@ -16,6 +16,11 @@ repo      = 'osyo-manga/unite-filetype'
 on_source = ['unite.vim']
 
 [[plugins]]
+repo      = 'h1mesuke/unite-outline'
+on_source = ['unite.vim']
+
+# html関連のファイルを開いたら読み込む
+[[plugins]]
 repo      = 'mattn/emmet-vim'
 on_ft     = ['html','css']
 
@@ -31,6 +36,7 @@ on_ft     = ['css']
 repo      = 'jelera/vim-javascript-syntax'
 on_ft     = ['html','js']
 
+# Haskellの編集時に読み込む
 [[plugins]]
 repo      = 'ujihisa/neco-ghc'
 on_ft     = ['hs']
