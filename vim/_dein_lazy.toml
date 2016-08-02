@@ -19,6 +19,10 @@ on_source = ['unite.vim']
 repo      = 'h1mesuke/unite-outline'
 on_source = ['unite.vim']
 
+[[plugins]]
+repo      = 'Shougo/vimfiler'
+on_source = ['unite.vim']
+
 # html関連のファイルを開いたら読み込む
 [[plugins]]
 repo      = 'mattn/emmet-vim'
