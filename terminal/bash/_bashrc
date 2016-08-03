@@ -124,12 +124,3 @@ if [ -x /usr/bin/mint-fortune ]; then
      /usr/bin/mint-fortune
 fi
 
-
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-### Added by the Heroku Toolbelt
-
-xkbcomp -I$HOME/.xkb ~/.xkb/keymap/mykbd $DISPLAY
-clear
-export PATH=/home/natai/.nvm/versions/node/v4.4.7/bin:/home/natai/.rbenv/shims:/home/natai/.rbenv/bin:/home/natai/bin:/home/natai/.nvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/home/natai/.nvm/bin:~/.powerline
-export PATH=/home/natai/.nvm/versions/node/v4.4.7/bin:/home/natai/.rbenv/shims:/home/natai/.rbenv/bin:/home/natai/.rbenv/shims:/home/natai/.rbenv/bin:/home/natai/bin:/home/natai/.nvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/home/natai/.nvm/bin:~/.local/bin
