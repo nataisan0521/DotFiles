@@ -50,7 +50,4 @@ on_ft     = ['hs']
 repo      = 'eagletmt/ghcmod-vim'
 on_ft     = ['hs']
 
-[[plugins]]
-repo      = 'nosami/Omnisharp'
-on_ft     = ['cs']
 

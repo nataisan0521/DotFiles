@@ -1,4 +1,0 @@
-" 
-
-
-[ -s "/home/natai/.dnx/dnvm/dnvm.sh" ] && . "/home/natai/.dnx/dnvm/dnvm.sh" # Load dnvm
