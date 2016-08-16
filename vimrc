@@ -165,33 +165,19 @@ nnoremap っy yy
 nnoremap ; :
 
 
-if &term =~ "xterm"
-  let &t_ti .= "\e[?2004h"
-  let &t_te .= "\e[?2004l"
-  let &pastetoggle = "\e[201~"
-
-  function XTermPasteBegin(ret)
-    set paste
-    return a:ret
-  endfunction
-
-  noremap <special> <expr> <Esc>[200~ XTermPasteBegin("0i")
-  inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
-  cnoremap <special> <Esc>[200~ <nop>
-  cnoremap <special> <Esc>[201~ <nop>
-endif
-"open vimrc
-nnoremap <Lender>j:<C-u>tabedit $MYVIMRC<CR>
+let g:neosnippet#snippets_directory='~/.vim/dein/repos/github.com/Shougo/neosnippet-snippets/neosnippets'
 
 " 色の設定
 syntax on
 colorscheme molokai
+hi Comment ctermfg=102
+hi Visual  ctermbg=236
+highlight Normal ctermbg=none
 set laststatus=2
 set t_Co=256
-highlight Normal ctermbg=none
 
 
-"" unite.vim {{{
+" unite.vim {{{
 " The prefix key.
 nnoremap    [unite]   <Nop>
 nmap    <Leader>f [unite]
