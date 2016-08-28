@@ -4,11 +4,11 @@ if &compatible
   set nocompatible               " Be iMproved
 endif
 
-" Required:
-set runtimepath^=$HOME/.vim/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
+
 
 " Required:
-call dein#begin(expand('$HOME/.vim/dein'))
+call dein#begin(expand('~/.vim/dein'))
 
 " Let dein manage dein
 let s:toml = '$HOME/.dein.toml'
