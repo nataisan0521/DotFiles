@@ -75,6 +75,8 @@ set cursorline
 set cursorcolumn
 " 行末の1文字先までカーソルを移動できるように
 set virtualedit=onemore
+" オートインデント
+set autoindent
 " インデントはスマートインデント
 set smartindent
 " ビープ音を可視化
@@ -260,3 +262,14 @@ let g:user_emmet_settings = {
   nn <silent> <leader>t :TagbarToggle<CR>
 "******************
 
+"
+"complete用設定
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_ignore_case = 1
+let g:neocomplete#enable_smart_case = 1
+if !exists('g:neocomplete#keyword_patterns')
+  let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns._ = '\h\w*'
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"

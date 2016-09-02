@@ -8,7 +8,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.linuxbrew/bin:$PATH"
 export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
-
+export PATH="/home/natai/.local/share/swift-2.2.1-RELEASE-ubuntu15.10/usr/bin:$PATH"
 export PYENV_ROOT=$HOME/.pyenv
 export PATH=$PYENV_ROOT/bin:$PATH
 eval "$(pyenv init -)"
