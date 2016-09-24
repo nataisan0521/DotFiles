@@ -14,12 +14,10 @@ hook_post_update = '''
 '''
 [[plugins]]
 repo = 'Shougo/vimshell.vim'
+if   = 'has("vim")'
 
 [[plugins]]
 repo = 'Shougo/unite.vim'
-
-[[plugins]]
-repo = 'scrooloose/nerdtree'
 
 [[plugins]]
 repo = 'tpope/vim-fugitive'
@@ -36,4 +34,23 @@ repo = 'itchyny/lightline.vim'
 [[plugins]]
 repo = 'glidenote/memolist.vim'
 
+[[plugins]]
+repo = 'kana/vim-smartchr'
 
+[[plugins]]
+repo      = 'Shougo/neomru.vim'
+
+[[plugins]]
+repo      = 'osyo-manga/unite-filetype'
+
+[[plugins]]
+repo      = 'h1mesuke/unite-outline'
+
+[[plugins]]
+repo      = 'Shougo/vimfiler'
+
+[[plugins]]
+repo      = 'basyura/unite-rails'
+
+[[plugins]]
+repo      = 'tpope/vim-dispatch'

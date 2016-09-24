@@ -1,20 +1,9 @@
 
 set guifont=RictyforPowerline\ Regular\ 12
 "ウィンドウ関係
-set guioptions-=T
-if hostname() ==? 'LUNA'
-  set columns=160
-  set lines=65
-  winpos 70 70
-elseif hostname() ==? 'SATELLA'
-  set columns=110
-  set lines=35
-  winpos 100 15
-else
   set columns=140
   set lines=55
   winpos 70 70
-endif
 set cmdheight=2  "コマンドラインの高さ(GUI使用時)
 "メニュー関係
 set winaltkeys=no "Alt+xでメニューをフォーカスしない

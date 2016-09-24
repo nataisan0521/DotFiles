@@ -4,14 +4,15 @@ if &compatible
   set nocompatible               " Be iMproved
 endif
 
-set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+=~/.config/nvim/dein/repos/github.com/Shougo/dein.vim
+
 
 " Required:
-call dein#begin(expand('~/.vim/dein'))
+call dein#begin(expand('~/.config/nvim/dein'))
 
 " Let dein manage dein
-let s:toml = '$HOME/.dein.toml'
-let s:lazy_toml = '$HOME/.dein_lazy.toml'
+let s:toml = '~/.config/nvim/dein.toml'
+let s:lazy_toml = '~/.config/nvim/dein_lazy.toml'
 
 " Required:
 call dein#add('Shougo/dein.vim')
@@ -21,14 +22,11 @@ call dein#add('Shougo/neosnippet.vim')
 call dein#add('Shougo/neosnippet-snippets')
 
 " You can specify revision/branch/tag.
-call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
 
-" toml読み込み 
-call dein#load_toml(s:toml, {'lazy': 0}) 
-call dein#load_toml(s:lazy_toml, {'lazy': 1})
+" toml読み込み
+call dein#load_toml(s:toml, {'lazy': 0})
+call dein#load_toml(s:lazy_toml, {'lazy': 1})"
 " Required:
-
-"
 call dein#end()
 
 " Required:
@@ -95,7 +93,6 @@ nnoremap k gk
 " 不可視文字を可視化(タブが「▸-」と表示される)
 set list listchars=tab:\▸\-
 " Tabを半角スペースにする
-set expandtab
 " 行頭以外のTab文字の表示幅(スペースいくつ分)
 set tabstop=2
 " 行頭でのTab文字の表示幅
@@ -168,7 +165,7 @@ nnoremap っy yy
 nnoremap ; :
 
 
-let g:neosnippet#snippets_directory='~/.vim/dein/repos/github.com/Shougo/neosnippet-snippets/neosnippets'
+let g:neosnippet#snippets_directory='~/.config/nvim/dein/repos/github.com/Shougo/neosnippet-snippets/neosnippets'
 
 " 色の設定
 syntax on
@@ -186,7 +183,6 @@ nnoremap    [unite]   <Nop>
 nmap    <Leader><space> [unite]
 
 " unite.vim keymap
-" https://github.com/alwei/dotfiles/blob/3760650625663f3b08f24bc75762ec843ca7e112/.vimrc
 nnoremap [unite]u  :<C-u>Unite -no-split<Space>
 nnoremap <silent> [unite]f :<C-u>Unite<Space>file<CR>
 nnoremap <silent> [unite]b :<C-u>Unite<Space>bookmark<CR>
@@ -195,15 +191,8 @@ nnoremap <silent> [unite]r :<C-u>UniteWithBufferDir file<CR>
 nnoremap <silent> [unite]t :<C-u>Unite<Space>filetype<CR>
 nnoremap <silent> [unite]o :<C-u>Unite<Space>outline<CR>
 nnoremap <silent> [unite]B :<C-u>Unite<Space>buffer<CR>
-nnoremap <silent> [unite]Rm :<C-u>Unite<Space>>rails/model<CR>
-nnoremap <silent> [unite]Rv :<C-u>Unite<Space>rails/view<CR>
-nnoremap <silent> [unite]Rc :<C-u>Unite<Space>rails/controller<CR>
-nnoremap <silent> [unite]RC :<C-u>Unite<Space>rails/config<CR>
+nnoremap <silent> [unite]pl :<C-u>Unite<Space>dein<CR>
 nnoremap <silent> ,vr :UniteResume<CR>
-
-
-" vinarise
-let g:vinarise_enable_auto_detect = 1
 
 " unite-build map
 nnoremap <silent> ,vb :Unite build<CR>
@@ -211,7 +200,7 @@ nnoremap <silent> ,vcb :Unite build:!<CR>
 nnoremap <silent> ,vch :UniteBuildClearHighlight<CR>
 "" }}}
 nnoremap <silent><leader>e :VimFilerExplore -split -winwidth=30 -find -no-quit<Cr>
-nnoremap <silent><leader>cm :sp<Cr><C-w><C-w>:VimShell<Cr>
+nnoremap <silent><leader>t :sp<Cr><C-w><C-w>:terminal<Cr>
 "" unite-grep {{{
 " unite-grepのバックエンドをagに切り替える 
 " http://qiita.com/items/c8962f9325a5433dc50d
@@ -221,15 +210,13 @@ let g:unite_source_grep_recursive_opt = ''
 let g:unite_source_grep_max_candidates = 200
 
 " unite-grepのキーマップ
- nnoremap [unite]<space> :split<cr> :<C-u>Unite -start-insert
-
-
-
+nnoremap [unite]<space> :split<cr> :<C-u>Unite -start-insert file_rec/async<cr>
 
 "MemoList
 let g:memolist_unite        = 1
 let g:memolist_unite_source = "file_rec"
 let g:memolist_unite_option = "-start-insert"
+
 map <Leader>mn  :MemoNew<CR>
 map <Leader>ml  :MemoList<CR>
 map <Leader>mg  :MemoGrep<CR>
@@ -260,32 +247,9 @@ let g:user_emmet_settings = {
 
 
 
-
-"******************
-" tagbar
-
-  let g:tagbar_width = 20
-  nn <silent> <leader>t :TagbarToggle<CR>
-"******************
-
-"
-"complete用設定
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_ignore_case = 1
-let g:neocomplete#enable_smart_case = 1
-if !exists('g:neocomplete#keyword_patterns')
-  let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns._ = '\h\w*'
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-
 "smartchr
 inoremap <buffer> <expr> = smartchr#loop(' = ', ' == ', '=')
-inoremap <buffer> <expr> + smartchr#loop(' + ', '+')
+inoremap <buffer> <expr> <S-=> smartchr#loop(' + ', '+')
 inoremap <buffer> <expr> - smartchr#loop(' - ', '-')
 inoremap <buffer> <expr> , smartchr#loop(', ', ',')
 inoremap <buffer> <expr> . smartchr#loop('.', '<%=  %>', '<%  %>')
-inoremap <buffer> <expr> / smartchr#loop('/', ' / ')
-inoremap <buffer> <expr> * smartchr#loop(' * ', '*')
-

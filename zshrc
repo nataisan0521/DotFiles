@@ -97,7 +97,7 @@ precmd() {
     esac
 }
 powerline-daemon -q
-. /home/natai/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
+. /usr/lib/python3.5/site-packages/powerline/bindings/zsh/powerline.zsh
 
 # ------------------------------
 # Other Settings
