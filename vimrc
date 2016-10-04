@@ -170,6 +170,17 @@ nnoremap ; :
 
 let g:neosnippet#snippets_directory='~/.vim/dein/repos/github.com/Shougo/neosnippet-snippets/neosnippets'
 
+imap <C-k>  <Plug>(neosnippet_expand_or_jump)
+smap <C-k>  <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>  <Plug>(neosnippet_expand_target)
+
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "<TAB>"
+
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
 " 色の設定
 syntax on
 colorscheme molokai
@@ -235,7 +246,7 @@ map <Leader>ml  :MemoList<CR>
 map <Leader>mg  :MemoGrep<CR>
 
 " lightline 設定
-let g:lightline = { 'colorscheme': 'wombat','component': {'readonly': '%{&readonly?"⭤":""}'},'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }, 'mode_map': {'c': 'NORMAL'}, 'active': {'left': [['mode','paste'],['fugiitive','filename']]},'component_function':{'mode': 'LightLineMode' } }
+let g:lightline = { 'colorscheme': 'wombat','component': {'readonly': '%{&readonly?"⭤":""}'}, 'mode_map': {'c': 'NORMAL'}, 'active': {'left': [['mode','paste'],['fugiitive','filename']]},'component_function':{'mode': 'LightLineMode' } }
 
 
 
@@ -258,17 +269,6 @@ let g:user_emmet_settings = {
     \   'indentation': '  '
     \ }
 
-
-
-
-"******************
-" tagbar
-
-  let g:tagbar_width = 20
-  nn <silent> <leader>t :TagbarToggle<CR>
-"******************
-
-"
 "complete用設定
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_ignore_case = 1
@@ -280,12 +280,4 @@ let g:neocomplete#keyword_patterns._ = '\h\w*'
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
-"smartchr
-inoremap <buffer> <expr> = smartchr#loop(' = ', ' == ', '=')
-inoremap <buffer> <expr> + smartchr#loop(' + ', '+')
-inoremap <buffer> <expr> - smartchr#loop(' - ', '-')
-inoremap <buffer> <expr> , smartchr#loop(', ', ',')
-inoremap <buffer> <expr> . smartchr#loop('.', '<%=  %>', '<%  %>')
-inoremap <buffer> <expr> / smartchr#loop('/', ' / ')
-inoremap <buffer> <expr> * smartchr#loop(' * ', '*')
 

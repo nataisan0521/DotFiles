@@ -88,7 +88,7 @@ precmd() {
     [[ -t 1 ]] || return
     case $TERM in
         *xterm*|rxvt|(dt|k|E)term)
-        print -Pn "\e]2;[%~]\a"    
+        print -Pn "\e]2;[%~]\a"
 	;;
         # screen)
         #      #print -Pn "\e]0;[%n@%m %~] [%l]\a"
@@ -96,8 +96,17 @@ precmd() {
         #      ;;
     esac
 }
-powerline-daemon -q
-. /usr/lib/python3.5/site-packages/powerline/bindings/zsh/powerline.zsh
+
+# 入力したコマンドが存在せず、かつディレクトリ名と一致するなら、ディレクトリに cd する
+# 例： /usr/bin と入力すると /usr/bin ディレクトリに移動
+setopt auto_cd
+
+# ↑を設定すると、 .. とだけ入力したら1つ上のディレクトリに移動できるので……
+# 2つ上、3つ上にも移動できるようにする
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+
 
 # ------------------------------
 # Other Settings
@@ -111,3 +120,8 @@ alias history='history -E'
 function cd() {
   builtin cd $@ && ls;
 }
+
+#powerline-daemon -q
+#. /usr/lib/python3.5/site-packages/powerline/bindings/zsh/powerline.zsh
+
+source ~/.nvm/nvm.sh

@@ -1,1 +1,0 @@
-/home/natai/.dotfiles/gvimrc
