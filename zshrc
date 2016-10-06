@@ -124,4 +124,3 @@ function cd() {
 #powerline-daemon -q
 #. /usr/lib/python3.5/site-packages/powerline/bindings/zsh/powerline.zsh
 
-source ~/.nvm/nvm.sh
