@@ -37,11 +37,12 @@
 (el-get-bundle magit)
 (el-get-bundle powerline)
 (el-get-bundle projectile)
+(el-get-bundle ruby-end)
 (el-get-bundle rtags)
+(el-get-bundle robe)
 (el-get-bundle use-package)
 (el-get-bundle yasnippet)
 (require 'evil-rebellion)
-(require 'evil-magit-rebellion)
 (require 'evil-org-rebellion)
 ;; 環境を日本語、UTF-8にする
 (set-locale-environment nil)
@@ -115,5 +116,25 @@
 ;; theme設定
 (load-theme 'molokai t)
 
+;; Ruby-mode
+(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+(add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode)) ;; shebangがrubyの場合、ruby-modeを開く
 
-
+;; ruby-modeのインデントを改良する
+(setq ruby-deep-indent-paren-style nil)
+(defadvice ruby-indent-line (after unindent-closing-paren activate)
+  (let ((column (current-column))
+        indent offset)
+    (save-excursion
+      (back-to-indentation)
+      (let ((state (syntax-ppss)))
+        (setq offset (- column (current-column)))
+        (when (and (eq (char-after) ?\))
+                   (not (zerop (car state))))
+          (goto-char (cadr state))
+          (setq indent (current-indentation)))))
+    (when indent
+      (indent-line-to indent)
+      (when (> offset 0) (forward-char offset)))))
