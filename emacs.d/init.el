@@ -25,11 +25,14 @@
 (add-to-load-path "site-lisp/evil-rebellion")
 (el-get-bundle company)
 (el-get-bundle dash)
+(el-get-bundle ddskk)
+(el-get-bundle d-mode)
 (el-get-bundle evil-leader)
 (el-get-bundle evil)
 (el-get-bundle evil-org)
 (el-get-bundle exec-path-from-shell)
 (el-get-bundle flycheck)
+(el-get-bundle flycheck-d-unittest)
 (el-get-bundle flycheck-irony)
 (el-get-bundle irony)
 (el-get-bundle helm)
@@ -53,8 +56,6 @@
 (setq default-buffer-file-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 (prefer-coding-system 'utf-8)
-(require 'mozc)
-(setq default-input-method "japanese-mozc")
 ;; スタートアップメッセージを表示させない
 (setq inhibit-startup-message t)
 (add-to-list 'default-frame-alist '(font . "ricty-12"))
@@ -138,3 +139,6 @@
     (when indent
       (indent-line-to indent)
       (when (> offset 0) (forward-char offset)))))
+
+;; Dlangの設定
+(add-to-list 'exec-path (expand-file-name "/usr/bin/dmd"))
