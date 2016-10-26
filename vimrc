@@ -1,61 +1,42 @@
-" setting
-"dein Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
+if !&compatible
+  set nocompatible
 endif
 
-set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
+" reset augroup
+augroup MyAutoCmd
+  autocmd!
+augroup END
 
-" Required:
-call dein#begin(expand('~/.vim/dein'))
-
-" Let dein manage dein
-let s:toml = '$HOME/.dein.toml'
-let s:lazy_toml = '$HOME/.dein_lazy.toml'
-
-" Required:
-call dein#add('Shougo/dein.vim')
-
-" Add or remove your plugins here:
-call dein#add('Shougo/neosnippet.vim')
-call dein#add('Shougo/neosnippet-snippets')
-
-" You can specify revision/branch/tag.
-call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
-
-" toml読み込み 
-call dein#load_toml(s:toml, {'lazy': 0}) 
-call dein#load_toml(s:lazy_toml, {'lazy': 1})
-" Required:
-
-"
-call dein#end()
-
-" Required:
-filetype plugin indent on
-
-" If you ...から下の部分のコメントアウトを外しておく
-" If you want to install not installed plugins on startup.
-if dein#check_install(['vimproc'])
-  call dein#install(['vimproc'])
+" dein settings {{{
+" dein自体の自動インストール
+let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
+let s:dein_dir = s:cache_home . '/dein'
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+if !isdirectory(s:dein_repo_dir)
+  call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
 endif
-if dein#check_install()
+let &runtimepath = s:dein_repo_dir .",". &runtimepath
+" プラグイン読み込み&キャッシュ作成
+let s:toml_file = '~/.dein.toml'
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir, [$MYVIMRC, s:toml_file])
+  call dein#load_toml(s:toml_file)
+  call dein#end()
+  call dein#save_state()
+endif
+" 不足プラグインの自動インストール
+if has('vim_starting') && dein#check_install()
   call dein#install()
 endif
-
- " If there are uninstalled bundles found on startup,
- " this will conveniently prompt you to install them.
-" End dein Scripts-------------------------
-
+" }}}
 
 "SpaceをLeaderにする
-let mapleader = "\<space>"
+let mapleader = "\<Space>"
 set backspace=eol,indent,start
 " 文字コードをUTF-8に指定
 set fenc=utf-8
 scriptencoding utf-8
 set encoding=utf-8
-set guifont=Ricty\ 10
 " バックアップファイルを作らない
 set nobackup
 " スワップファイルを作らない
@@ -70,10 +51,6 @@ set showcmd
 " 見た目系
 " 行番号の表示
 set number
-" 現在の行を強調表示
-set cursorline
-" 現在の行を強調表示(縦)
-set cursorcolumn
 " 行末の1文字先までカーソルを移動できるように
 set virtualedit=onemore
 " オートインデント
@@ -92,14 +69,13 @@ set wildmode=list:longest
 nnoremap j gj
 nnoremap k gk
 "Tab系
-" 不可視文字を可視化(タブが「▸-」と表示される)
-set list listchars=tab:\▸\-
+    
 " Tabを半角スペースにする
 set expandtab
 " 行頭以外のTab文字の表示幅(スペースいくつ分)
-set tabstop=2
+set tabstop=4
 " 行頭でのTab文字の表示幅
-set shiftwidth=2
+set shiftwidth=4
 
 " 検索系
 " 検索文字列が小文字の場合は大文字小文字を区別なく検索する
@@ -148,8 +124,7 @@ nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
 nnoremap sq :<C-u>q<CR>
 nnoremap sQ :<C-u>bd<CR>
-nnoremap sb :<C-u>Unite buffer_tab -buffer-name=file<CR>
-nnoremap sB :<C-u>Unite buffer -buffer-name=file<CR>
+
 " 入力モードでのカーソル移動
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
@@ -167,125 +142,11 @@ nnoremap っy yy
 ";でコマンドモード起動
 nnoremap ; :
 
-
-let g:neosnippet#snippets_directory='~/.vim/dein/repos/github.com/Shougo/neosnippet-snippets/neosnippets'
-
-imap <C-k>  <Plug>(neosnippet_expand_or_jump)
-smap <C-k>  <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>  <Plug>(neosnippet_expand_target)
-
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "<TAB>"
-
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-
-" 色の設定
-syntax on
-colorscheme molokai
-hi Comment ctermfg=102
-hi Visual  ctermbg=236
-highlight Normal ctermbg=none
+syntax enable
 set laststatus=2
 set t_Co=256
-
-
-" unite.vim {{{
-" The prefix key.
-nnoremap    [unite]   <Nop>
-nmap    <Leader><space> [unite]
-
-" unite.vim keymap
-" https://github.com/alwei/dotfiles/blob/3760650625663f3b08f24bc75762ec843ca7e112/.vimrc
-nnoremap [unite]u  :<C-u>Unite -no-split<Space>
-nnoremap <silent> [unite]f :<C-u>Unite<Space>file<CR>
-nnoremap <silent> [unite]b :<C-u>Unite<Space>bookmark<CR>
-nnoremap <silent> [unite]m :<C-u>Unite<Space>file_mru<CR>
-nnoremap <silent> [unite]r :<C-u>UniteWithBufferDir file<CR>
-nnoremap <silent> [unite]t :<C-u>Unite<Space>filetype<CR>
-nnoremap <silent> [unite]o :<C-u>Unite<Space>outline<CR>
-nnoremap <silent> [unite]B :<C-u>Unite<Space>buffer<CR>
-nnoremap <silent> [unite]Rm :<C-u>Unite<Space>>rails/model<CR>
-nnoremap <silent> [unite]Rv :<C-u>Unite<Space>rails/view<CR>
-nnoremap <silent> [unite]Rc :<C-u>Unite<Space>rails/controller<CR>
-nnoremap <silent> [unite]RC :<C-u>Unite<Space>rails/config<CR>
-nnoremap <silent> ,vr :UniteResume<CR>
-
-
-" vinarise
-let g:vinarise_enable_auto_detect = 1
-
-" unite-build map
-nnoremap <silent> ,vb :Unite build<CR>
-nnoremap <silent> ,vcb :Unite build:!<CR>
-nnoremap <silent> ,vch :UniteBuildClearHighlight<CR>
-"" }}}
-nnoremap <silent><leader>e :VimFilerExplore -split -winwidth=30 -find -no-quit<Cr>
-nnoremap <silent><leader>cm :sp<Cr><C-w><C-w>:VimShell<Cr>
-"" unite-grep {{{
-" unite-grepのバックエンドをagに切り替える 
-" http://qiita.com/items/c8962f9325a5433dc50d
-let g:unite_source_grep_command = 'ag'
-let g:unite_source_grep_default_opts = '--nocolor --nogroup'
-let g:unite_source_grep_recursive_opt = ''
-let g:unite_source_grep_max_candidates = 200
-
-" unite-grepのキーマップ
- nnoremap [unite]<space> :split<cr> :<C-u>Unite -start-insert
+set background=dark
 
 
 
-
-"MemoList
-let g:memolist_unite        = 1
-let g:memolist_unite_source = "file_rec"
-let g:memolist_unite_option = "-start-insert"
-map <Leader>mn  :MemoNew<CR>
-map <Leader>ml  :MemoList<CR>
-map <Leader>mg  :MemoGrep<CR>
-
-" lightline 設定
-let g:lightline = { 'colorscheme': 'wombat','component': {'readonly': '%{&readonly?"⭤":""}'}, 'mode_map': {'c': 'NORMAL'}, 'active': {'left': [['mode','paste'],['fugiitive','filename']]},'component_function':{'mode': 'LightLineMode' } }
-
-
-
-function! LightLineMode()
-    return  &ft == 'unite' ? 'Unite' :
-          \ &ft == 'vimfiler' ? 'VimFiler' :
-          \ &ft == 'vimshell' ? 'VimShell' :
-          \winwidth(0) > 60 ? lightline#mode() : ''
-endfunction
-
-"------------------------------------
-"
-" emmet-vim
-"------------------------------------
-let g:user_emmet_leader_key='<Space>'
-let g:user_emmet_settings = {
-    \    'variables': {
-    \      'lang': "ja"
-    \    },
-    \   'indentation': '  '
-    \ }
-
-"complete用設定
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_ignore_case = 1
-let g:neocomplete#enable_smart_case = 1
-if !exists('g:neocomplete#keyword_patterns')
-  let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns._ = '\h\w*'
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-
-"smartchr
-inoremap <buffer> <expr> = smartchr#loop(' = ', ' == ', '=')
-inoremap <buffer> <expr> + smartchr#loop(' + ', '+')
-inoremap <buffer> <expr> - smartchr#loop(' - ', '-')
-inoremap <buffer> <expr> , smartchr#loop(', ', ',')
-inoremap <buffer> <expr> . smartchr#loop('.', '<%=  %>', '<%  %>')
-inoremap <buffer> <expr> ( smartchr#loop('()', ' ()', '(')
-inoremap <buffer> <expr> { smartchr#loop('{}', ' {}', '{<NL><NL>}')
 

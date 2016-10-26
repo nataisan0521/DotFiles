@@ -1,5 +1,8 @@
 [[plugins]]
-repo = 'Shougo/vimproc.vim'
+repo     = 'Shougo/dein.vim'
+
+[[plugins]]
+repo     = 'Shougo/vimproc.vim'
 hook_post_update = '''
   if dein#util#_is_windows()
     let cmd = 'tools\\update-dll-mingw'
@@ -12,45 +15,264 @@ hook_post_update = '''
   endif
   let g:dein#plugin.build = cmd
 '''
-[[plugins]]
-repo = 'Shougo/vimshell.vim'
-if   = 'has("vim")'
 
 [[plugins]]
-repo = 'Shougo/unite.vim'
+repo      = 'Shougo/vimshell.vim'
+hook_add  = '''
+  nnoremap <silent><leader>cm :sp<C-w><C-w><C-w>:VimShell<Cr>
+'''
 
 [[plugins]]
-repo = 'tpope/vim-fugitive'
+repo      = 'Shougo/unite.vim'
+hook_add  = '''
+  " The prefix key.
+  nnoremap    [unite]   <Nop>
+  nmap    <Leader><space> [unite]
+
+  " unite.vim keymap
+  " https://github.com/alwei/dotfiles/blob/3760650625663f3b08f24bc75762ec843ca7e112/.vimrc
+  nnoremap [unite]u  :<C-u>Unite -no-split<Space>
+  nnoremap <silent> [unite]f :<C-u>Unite<Space>file<CR>
+  nnoremap <silent> [unite]b :<C-u>Unite<Space>bookmark<CR>
+  nnoremap <silent> [unite]r :<C-u>UniteWithBufferDir file<CR>
+  nnoremap <silent> [unite]B :<C-u>Unite<Space>buffer<CR>
+
+  " unite-build map
+  nnoremap <silent> ,vb :Unite build<CR>
+  nnoremap <silent> ,vcb :Unite build:!<CR>
+  nnoremap <silent> ,vch :UniteBuildClearHighlight<CR>
+  "" }}}
+  
+
+  "" unite-grep {{{
+  " unite-grepのバックエンドをagに切り替える 
+  " http://qiita.com/items/c8962f9325a5433dc50d
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nocolor --nogroup'
+  let g:unite_source_grep_recursive_opt = ''
+  let g:unite_source_grep_max_candidates = 200
+
+  " unite-grepのキーマップ
+  nnoremap [unite]<space> :split<cr> :<C-u>Unite -start-insert
+'''
 
 [[plugins]]
-repo = 'tomasr/molokai'
+repo      = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
-repo = 'tpope/vim-surround'
+repo      = 'Shougo/neosnippet'
+depends   = ['neosnippet-snippets']
+on_i      = 1
+hook_source = '''
+  let g:neosnippet#snippets_directory='~/.vim/dein/repos/github.com/Shougo/neosnippet-snippets/neosnippets'
+
+  imap <C-k>  <Plug>(neosnippet_expand_or_jump)
+  smap <C-k>  <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k>  <Plug>(neosnippet_expand_target)
+
+  smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+  \ "\<Plug>(neosnippet_expand_or_jump)" : "<TAB>"
+'''
 
 [[plugins]]
-repo = 'itchyny/lightline.vim'
+repo      = 'tpope/vim-fugitive'
 
 [[plugins]]
-repo = 'glidenote/memolist.vim'
+repo      = 'tomasr/molokai'
+hook_add  = '''
+  au MyAutoCmd VimEnter * nested colorscheme molokai
+'''
+[[plugins]]
+repo      = 'jdkanani/vim-material-theme'
+hook_add  = '''
+'''
 
 [[plugins]]
-repo = 'kana/vim-smartchr'
+repo      = 'tpope/vim-surround'
+
+[[plugins]]
+repo      = 'itchyny/lightline.vim'
+hook_add  = '''
+  let g:lightline = { 'colorscheme': 'wombat','component': {'readonly': '%{&readonly?"⭤":""}'}, 'mode_map': {'c': 'NORMAL'}, 'active': {'left': [['mode','paste'],['fugiitive','filename']]},'component_function':{'mode': 'LightLineMode' } }
+
+  function! LightLineMode()
+     return  &ft == 'unite' ? 'Unite' :
+           \ &ft == 'vimfiler' ? 'VimFiler' :
+           \ &ft == 'vimshell' ? 'VimShell' :
+           \winwidth(0) > 60 ? lightline#mode() : ''
+  endfunction
+'''
+
+[[plugins]]
+repo      = 'glidenote/memolist.vim'
+depend    = ['unite.vim']
+hook_add  = '''
+  "MemoList
+  let g:memolist_unite        = 1
+  let g:memolist_unite_source = "file_rec"
+  let g:memolist_unite_option = "-start-insert"
+  map <Leader>mn  :MemoNew<CR>
+  map <Leader>ml  :MemoList<CR>
+  map <Leader>mg  :MemoGrep<CR>
+'''
+
+[[plugins]]
+repo      = 'kana/vim-smartchr'
+on_i      =1
+hook_source = '''
+  inoremap <buffer> <expr> = smartchr#loop(' = ', ' == ', '=')
+  inoremap <buffer> <expr> + smartchr#loop(' + ', '+')
+  inoremap <buffer> <expr> - smartchr#loop(' - ', '-')
+  inoremap <buffer> <expr> , smartchr#loop(', ', ',')
+  inoremap <buffer> <expr> . smartchr#loop('.', '<%=  %>', '<%  %>')
+  inoremap <buffer> <expr> ( smartchr#loop('()', ' ()', '(')
+  inoremap <buffer> <expr> { smartchr#loop('{}', ' {}', '{<NL><NL>}')
+'''
 
 [[plugins]]
 repo      = 'Shougo/neomru.vim'
+depends   = ['unite.vim']
+hook_add  = '''
+  nnoremap <silent> [unite]m :<C-u>Unite<Space>file_mru<CR>
+'''
 
 [[plugins]]
 repo      = 'osyo-manga/unite-filetype'
+depends   = ['unite.vim']
+hook_add  = '''
+  nnoremap <silent> [unite]t :<C-u>Unite<Space>filetype<CR>
+'''
 
 [[plugins]]
 repo      = 'h1mesuke/unite-outline'
+depends   = ['unite.vim']
+hook_add  = '''
+  nnoremap <silent> [unite]o :<C-u>Unite<Space>outline<CR>
+'''
 
 [[plugins]]
 repo      = 'Shougo/vimfiler'
+depends   = ['unite.vim']
+hook_add  = '''
+ nnoremap <silent><leader>e :VimFilerExplore -split -winwidth=30 -find -no-quit<Cr>
+'''
 
 [[plugins]]
 repo      = 'basyura/unite-rails'
+depends   = ['unite.vim']
+on_ft     = ['rb','erb']
+hook_source = '''
+  nnoremap <silent> [unite]Rm :<C-u>Unite<Space>>rails/model<CR>
+  nnoremap <silent> [unite]Rv :<C-u>Unite<Space>rails/view<CR>
+  nnoremap <silent> [unite]Rc :<C-u>Unite<Space>rails/controller<CR>
+  nnoremap <silent> [unite]RC :<C-u>Unite<Space>rails/config<CR>
+  nnoremap <silent> ,vr :UniteResume<CR>
+'''
 
 [[plugins]]
 repo      = 'tpope/vim-dispatch'
+
+# インサートモードに入ったら読み込む
+[[plugins]]
+repo      = 'Shougo/neocomplete.vim'
+on_i      = 1
+hook_source = '''
+"complete用設定
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_ignore_case = 1
+let g:neocomplete#enable_smart_case = 1
+if !exists('g:neocomplete#keyword_patterns')
+  let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns._ = '\h\w*'
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+'''
+
+[[plugins]] # 補完
+repo      = 'Shougo/deoplete.nvim'
+if        = 'has("nvim")'
+on_i      = 1
+hook_source = '''
+  let g:deoplete#enable_at_startup = 1
+'''
+# unite.vim を読み込んだら一緒に読み込む
+
+# html関連のファイルを開いたら読み込む
+[[plugins]]
+repo      = 'mattn/emmet-vim'
+on_ft     = ['html','css']
+on_i      = 1
+hook_add  = '''
+  let g:user_emmet_mode = 'i'
+  let g:use_emmet_complete_tag = 1
+  let g:user_emmet_settings = {
+  \   'variables': {
+  \     'lang': "ja"
+  \   },
+  \   'indentation': '    '
+  \ }
+'''
+
+[[plugins]]
+repo      = 'othree/html5.vim'
+on_ft     = ['html']
+
+[[plugins]]
+repo      = 'hail2u/vim-css3-syntax'
+on_ft     = ['css']
+
+[[plugins]]
+repo      = 'jelera/vim-javascript-syntax'
+on_ft     = ['html','js']
+
+# Haskellの編集時に読み込む
+[[plugins]]
+repo      = 'ujihisa/neco-ghc'
+on_ft     = ['hs']
+on_i      = 1
+
+[[plugins]]
+repo      = 'kana/vim-filetype-haskell'
+on_ft     = ['hs']
+
+[[plugins]]
+repo      = 'eagletmt/ghcmod-vim'
+on_ft     = ['hs']
+on_i      = 1
+
+[[plugins]]
+repo      = 'cespare/vim-toml'
+on_ft     = ['toml']
+
+[[plugins]]
+repo      = 'OmniSharp/omnisharp-vim'
+on_ft     = ['cs']
+hook_source = '''
+    autocmd FileType cs setlocal omnifunc = OmniSharp#Complete
+    
+    if !exists()'g:neocomplete#sources#omni#input_patterns')
+        let g:neocomplete#sources#omni#input_patterns  =  {}}
+    endif
+    
+    let g:neocomplete#sources#omni#input_patterns.cs  =  '.*[^ = \);]'
+
+    autocmd FileType cs nnoremap gd :OmniSharpGotoDefinition<cr>
+    autocmd FileType cs nnoremap <leader>fi :OmniSharpFindImplementations<cr>
+    autocmd FileType cs nnoremap <leader>ft :OmniSharpFindType<cr>
+    autocmd FileType cs nnoremap <leader>fs :OmniSharpFindSymbol<cr>
+    autocmd FileType cs nnoremap <leader>fu :OmniSharpFindUsages<cr>
+    autocmd FileType cs nnoremap <leader>fm :OmniSharpFindMembers<cr>
+    
+    autocmd FileType cs nnoremap <leader>x  :OmniSharpFixIssue<cr>
+    autocmd FileType cs nnoremap <leader>fx :OmniSharpFixUsings<cr>
+    autocmd FileType cs nnoremap <leader>tt :OmniSharpTypeLookup<cr>
+    autocmd FileType cs nnoremap <leader>d  :OmniSharpDocumentation<cr>
+    
+    autocmd FileType cs nnoremap <C-K> :OmniSharpNavigateUp<cr>
+    autocmd FileType cs nnoremap <C-J> :OmniSharpNavigateDown<cr>
+    
+    autocmd FileType cs nnoremap <leader>rn :OmniSharpRename<cr>
+    autocmd FileType cs nnoremap <leader>cf :OmniSharpCodeFormat<cr>
+    autocmd FileType cs nnoremap <leader>rl :OmniSharpReloadSolution<cr>
+'''
