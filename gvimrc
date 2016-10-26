@@ -1,9 +1,8 @@
 
-set guifont=RictyforPowerline\ Regular\ 12
+set guifont=RictyDiminished\ Regular\ 12
 "ウィンドウ関係
-  set columns=140
-  set lines=55
-  winpos 70 70
+  set columns=85
+  set lines=31
 set cmdheight=2  "コマンドラインの高さ(GUI使用時)
 "メニュー関係
 set winaltkeys=no "Alt+xでメニューをフォーカスしない
