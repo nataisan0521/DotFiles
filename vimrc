@@ -1,34 +1,42 @@
-if !&compatible
-  set nocompatible
+" :TODO インデント整理
+
+if has('vim_starting')
+    set rtp+=~/.vim/plugged/vim-plug
+    if !isdirectory(expand('~/.vim/plugged/vim-plug'))
+       echo 'install vim-plug...'
+       call system('mkdir -p ~/.vim/plugged/vim-plug')
+       call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/plugged/vim-plug/autoload')
+    end
 endif
 
-" reset augroup
-augroup MyAutoCmd
-  autocmd!
-augroup END
+call plug#begin(expand('~/.vim/plugged/'))
 
-" dein settings {{{
-" dein自体の自動インストール
-let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
-let s:dein_dir = s:cache_home . '/dein'
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-if !isdirectory(s:dein_repo_dir)
-  call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
-endif
-let &runtimepath = s:dein_repo_dir .",". &runtimepath
-" プラグイン読み込み&キャッシュ作成
-let s:toml_file = '~/.dein.toml'
-if dein#load_state(s:dein_dir)
-  call dein#begin(s:dein_dir, [$MYVIMRC, s:toml_file])
-  call dein#load_toml(s:toml_file)
-  call dein#end()
-  call dein#save_state()
-endif
-" 不足プラグインの自動インストール
-if has('vim_starting') && dein#check_install()
-  call dein#install()
-endif
-" }}}
+    Plug 'junegunn/vim-plug',
+        \ {'dir': '~/.vim/plugged/vim-plug/autoload'}
+    Plug 'Shougo/vimproc', {'do': 'make'} | Plug 'Shougo/neocomplete.vim'
+    Plug 'Shougo/unite.vim' | Plug 'Shougo/vimfiler'
+    Plug 'Shougo/unite.vim' | Plug 'glidenote/memolist.vim'
+    Plug 'Shougo/unite.vim' | Plug 'Shougo/neomru.vim'
+    Plug 'Shougo/unite.vim' | Plug 'osyo-manga/unite-filetype'
+    Plug 'Shougo/unite.vim' | Plug 'h1mesuke/unite-outline'
+    Plug 'Shougo/unite.vim' | Plug 'basyura/unite-rails', {'for': ['rb','erb'] }
+    Plug 'tpope/vim-fugitive'
+    Plug 'tomasr/molokai'
+    Plug 'itchyny/lightline.vim'
+    Plug 'kana/vim-smartchr'
+    Plug 'Shougo/neosnippet-snippets' | Plug 'Shougo/neosnippet'
+    Plug 'tpope/vim-dispatch' | Plug 'OmniSharp/omnisharp-vim' ,{
+                                    \ 'for': 'cs',
+                                    \ 'do' : 'xbuild server/OmniSharp.sln'
+                                    \ }
+    Plug 'mattn/emmet-vim', {'for': ['html','css','erb']}
+    Plug 'hail2u/vim-css3-syntax' , {'for': 'css'}
+    Plug 'othree/html5.vim', {'for': 'html'}
+    Plug 'jelera/vim-javascript-syntax', {'for': ['html','js']}
+    Plug 'ujihisa/neco-ghc', {'for': 'hs'}
+    Plug 'kana/vim-filetype-haskell', {'for': 'hs'}
+    Plug 'eagletmt/ghcmod-vim', {'for': 'hs'}
+call plug#end()
 
 "SpaceをLeaderにする
 let mapleader = "\<Space>"
@@ -146,7 +154,88 @@ syntax enable
 set laststatus=2
 set t_Co=256
 set background=dark
+colorscheme molokai
 
+if !exists('g:neocomplete#sources#omni#input_patterns')
+    let g:neocomplete#sources#omni#input_patterns  =  {}
+endif
 
+let g:neocomplete#sources#omni#input_patterns.cs  =  '.*[^ = \);]'
 
+autocmd FileType cs nnoremap gd :OmniSharpGotoDefinition<cr>
+autocmd FileType cs nnoremap <leader>fi :OmniSharpFindImplementations<cr>
+autocmd FileType cs nnoremap <leader>ft :OmniSharpFindType<cr>
+autocmd FileType cs nnoremap <leader>fs :OmniSharpFindSymbol<cr>
+autocmd FileType cs nnoremap <leader>fu :OmniSharpFindUsages<cr>
+autocmd FileType cs nnoremap <leader>fm :OmniSharpFindMembers<cr>
+
+autocmd FileType cs nnoremap <leader>x  :OmniSharpFixIssue<cr>
+autocmd FileType cs nnoremap <leader>fx :OmniSharpFixUsings<cr>
+autocmd FileType cs nnoremap <leader>tt :OmniSharpTypeLookup<cr>
+autocmd FileType cs nnoremap <leader>d  :OmniSharpDocumentation<cr>
+
+autocmd FileType cs nnoremap <C-K> :OmniSharpNavigateUp<cr>
+autocmd FileType cs nnoremap <C-J> :OmniSharpNavigateDown<cr>
+
+autocmd FileType cs nnoremap <leader>rn :OmniSharpRename<cr>
+autocmd FileType cs nnoremap <leader>cf :OmniSharpCodeFormat<cr>
+autocmd FileType cs nnoremap <leader>rl :OmniSharpReloadSolution<cr>
+
+" lightline.vim
+  let g:lightline = { 'colorscheme': 'wombat','component': {'readonly': '%{&readonly?"⭤":""}'}, 'mode_map': {'c': 'NORMAL'}, 'active': {'left': [['mode','paste'],['fugiitive','filename']]},'component_function':{'mode': 'LightLineMode' } }
+
+  function! LightLineMode()
+     return  &ft == 'unite' ? 'Unite' :
+           \ &ft == 'vimfiler' ? 'VimFiler' :
+           \ &ft == 'vimshell' ? 'VimShell' :
+           \winwidth(0) > 60 ? lightline#mode() : ''
+  endfunction
+  
+" Unite.vim
+ " The prefix key.
+  nnoremap    [unite]   <Nop>
+  nmap    <Leader><space> [unite]
+
+  " unite.vim keymap
+  " https://github.com/alwei/dotfiles/blob/3760650625663f3b08f24bc75762ec843ca7e112/.vimrc
+  nnoremap [unite]u  :<C-u>Unite -no-split<Space>
+  nnoremap <silent> [unite]f :<C-u>Unite<Space>file<CR>
+  nnoremap <silent> [unite]b :<C-u>Unite<Space>bookmark<CR>
+  nnoremap <silent> [unite]r :<C-u>UniteWithBufferDir file<CR>
+  nnoremap <silent> [unite]B :<C-u>Unite<Space>buffer<CR>
+
+  " unite-build map
+  nnoremap <silent> ,vb :Unite build<CR>
+  nnoremap <silent> ,vcb :Unite build:!<CR>
+  nnoremap <silent> ,vch :UniteBuildClearHighlight<CR>
+  "" }}}
+  
+
+  "" unite-grep {{{
+  " unite-grepのバックエンドをagに切り替える 
+  " http://qiita.com/items/c8962f9325a5433dc50d
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nocolor --nogroup'
+  let g:unite_source_grep_recursive_opt = ''
+  let g:unite_source_grep_max_candidates = 200
+
+  " unite-grepのキーマップ
+  nnoremap [unite]<space> :split<cr> :<C-u>Unite -start-insert
+
+" VimShell
+nnoremap <silent><leader>cm :sp<C-w><C-w><C-w>:VimShell<Cr>
+
+" VimFiler
+nnoremap <silent><leader>e :VimFilerExplore -split -winwidth=30 -find -no-quit<Cr>
+
+" neocomplete
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_ignore_case = 1
+let g:neocomplete#enable_smart_case = 1
+if !exists('g:neocomplete#keyword_patterns')
+  let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns._ = '\h\w*'
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
