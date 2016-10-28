@@ -1,6 +1,3 @@
-
-
-export LANG=ja_JP.UTF-8  # 文字コードをUTF-8に設定
 export KCODE=u           # KCODEにUTF-8を設定
 export AUTOFEATURE=true  # autotestでfeatureを動かす
 
@@ -21,10 +18,6 @@ setopt list_types              # 補完候補にファイルの種類も表示�
 bindkey "^[[Z" reverse-menu-complete  # Shift-Tabで補完候補を逆順する("\e[Z"でも動作する)
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完時に大文字小文字を区別しない
 
-### History ###
-HISTFILE=~/.zsh_history   # ヒストリを保存するファイル
-HISTSIZE=10000            # メモリに保存されるヒストリの件数
-SAVEHIST=10000            # 保存されるヒストリの件数
 setopt bang_hist          # !を使ったヒストリ展開を行う(d)
 setopt extended_history   # ヒストリに実行時間も保存する
 setopt hist_ignore_dups   # 直前と同じコマンドはヒストリに追加しない
@@ -59,8 +52,10 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 ### Prompt ###
 # プロンプトに色を付ける
 autoload -U colors; colors
+autoload -Uz vcs_info  
+setopt prompt_subst
 # 一般ユーザ時
-tmp_prompt="%F{cyan}[%n@%D{%m/%d %T}]%f "
+tmp_prompt="%F{cyan}[%n]%f"
 #tmp_prompt="%{${fg[cyan]}%}%n%# %{${reset_color}%}"
 tmp_prompt2="%{${fg[cyan]}%}%_> %{${reset_color}%}"
 tmp_rprompt="%{${fg[green]}%}[%~]%{${reset_color}%}"
@@ -97,15 +92,6 @@ precmd() {
     esac
 }
 
-# 入力したコマンドが存在せず、かつディレクトリ名と一致するなら、ディレクトリに cd する
-# 例： /usr/bin と入力すると /usr/bin ディレクトリに移動
-setopt auto_cd
-
-# ↑を設定すると、 .. とだけ入力したら1つ上のディレクトリに移動できるので……
-# 2つ上、3つ上にも移動できるようにする
-alias ...='cd ../..'
-alias ....='cd ../../..'
-
 
 
 # ------------------------------
@@ -113,19 +99,24 @@ alias ....='cd ../../..'
 # ------------------------------
 
 ### Aliases ###
-#時刻を表示させる
-alias history='history -E'
 
 # cdコマンド実行後、lsを実行する
 function cd() {
   builtin cd $@ && ls;
 }
 
-#powerline-daemon -q
-#. /usr/lib/python3.5/site-packages/powerline/bindings/zsh/powerline.zsh
 
-if [ -d $HOME/.anyenv ]
-then
-   export PATH="$HOME/.anyenv/bin:$PATH"
-   eval "$(anyenv init -)"
-fi
+
+peco-src() {
+    local selected
+    selected="$(ghq list --full-path | peco --query="$LBUFFER")"
+    if [ -n "$selected" ]; then
+        BUFFER="cd $selected"
+        # zle accept-line
+    fi
+    zle reset-prompt
+}
+
+zle -N peco-src
+bindkey '^]' peco-src
+
