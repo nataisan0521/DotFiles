@@ -55,42 +55,24 @@ autoload -U colors; colors
 autoload -Uz vcs_info  
 setopt prompt_subst
 # 一般ユーザ時
-tmp_prompt="%F{cyan}[%n]%f"
+zstyle ':vcs_info:*' formats '%s][* %F{green}%b%f'
+zstyle ':vcs_info:*' actionformats '%s][* %F{green}%b%f(%F{red}%a%f)'
 #tmp_prompt="%{${fg[cyan]}%}%n%# %{${reset_color}%}"
 tmp_prompt2="%{${fg[cyan]}%}%_> %{${reset_color}%}"
 tmp_rprompt="%{${fg[green]}%}[%~]%{${reset_color}%}"
 tmp_sprompt="%{${fg[yellow]}%}%r is correct? [Yes, No, Abort, Edit]:%{${reset_color}%}"
 
-# rootユーザ時(太字にし、アンダーバーをつける)
-if [ ${UID} -eq 0 ]; then
-  tmp_prompt="%B%U${tmp_prompt}%u%b"
-  tmp_prompt2="%B%U${tmp_prompt2}%u%b"
-  tmp_rprompt="%B%U${tmp_rprompt}%u%b"
-  tmp_sprompt="%B%U${tmp_sprompt}%u%b"
-fi
+precmd() { vcs_info }
 
-PROMPT=$tmp_prompt    # 通常のプロンプト
-PROMPT2=$tmp_prompt2  # セカンダリのプロンプト(コマンドが2行以上の時に表示される)
-RPROMPT=$tmp_rprompt  # 右側のプロンプト
-SPROMPT=$tmp_sprompt  # スペル訂正用プロンプト
+PROMPT='[%n@%m]%#' # 通常のプロンプト
+PROMPT2='%{${fg[cyan]}%}%_> %{${reset_color}%}'  # セカンダリのプロンプト(コマンドが2行以上の時に表示される)
+RPROMPT='[${vcs_info_msg_0_}]%{${fg[green]}%}[%c]%{${reset_color}%}'  # 右側のプロンプト
+SPROMPT='%{${fg[yellow]}%}%r is correct? [Yes, No, Abort, Edit]:%{${reset_color}%}'  # スペル訂正用プロンプト
 # SSHログイン時のプロンプト
 [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
   PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}"
 ;
 
-#Title
-precmd() {
-    [[ -t 1 ]] || return
-    case $TERM in
-        *xterm*|rxvt|(dt|k|E)term)
-        print -Pn "\e]2;[%~]\a"
-	;;
-        # screen)
-        #      #print -Pn "\e]0;[%n@%m %~] [%l]\a"
-        #      print -Pn "\e]0;[%n@%m %~]\a"
-        #      ;;
-    esac
-}
 
 
 
