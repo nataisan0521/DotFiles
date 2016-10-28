@@ -36,6 +36,7 @@ call plug#begin(expand('~/.vim/plugged/'))
     Plug 'ujihisa/neco-ghc', {'for': 'hs'}
     Plug 'kana/vim-filetype-haskell', {'for': 'hs'}
     Plug 'eagletmt/ghcmod-vim', {'for': 'hs'}
+    Plug 'altercation/vim-colors-solarized'
 call plug#end()
 
 "SpaceをLeaderにする
@@ -154,7 +155,7 @@ syntax enable
 set laststatus=2
 set t_Co=256
 set background=dark
-colorscheme molokai
+colorscheme solarized
 
 if !exists('g:neocomplete#sources#omni#input_patterns')
     let g:neocomplete#sources#omni#input_patterns  =  {}

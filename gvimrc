@@ -1,8 +1,5 @@
 
-set guifont=RictyDiminished\ Regular\ 12
-"ウィンドウ関係
-  set columns=85
-  set lines=31
+set guifont=Ricty\ Regular\ 12
 set cmdheight=2  "コマンドラインの高さ(GUI使用時)
 "メニュー関係
 set winaltkeys=no "Alt+xでメニューをフォーカスしない
@@ -37,3 +34,5 @@ nnoremap <S-Insert> "+P
 vnoremap <S-Insert> "+p
 vnoremap <C-Insert> "+y
 vnoremap <S-Delete> "+x
+
+source ~/.vimrc
