@@ -19,7 +19,7 @@ function history-all { history -E 1 }
 
 
 function cd() {
-    builtin cd $@ && ls;
+    builtin cd $@ && ls -a;
 }
 
 ### History ###
