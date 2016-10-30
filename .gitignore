@@ -1,5 +1,6 @@
-emacs.d/el-get
-emacs.d/elpa
-emacs.d/auto-save-list
-emacs.d/irony
-emacs.d/site-lisp
+.emacs.d/el-get
+.emacs.d/elpa
+.emacs.d/auto-save-list
+.emacs.d/irony
+.emacs.d/site-lisp
+.emacs.d/*.elc

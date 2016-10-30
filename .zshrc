@@ -1,6 +1,3 @@
-export KCODE=u           # KCODEにUTF-8を設定
-export AUTOFEATURE=true  # autotestでfeatureを動かす
-
 bindkey -v              # キーバインドをviモードに設定
 
 setopt auto_pushd        # cd時にディレクトリスタックにpushdする
@@ -101,4 +98,19 @@ peco-src() {
 
 zle -N peco-src
 bindkey '^]' peco-src
+
+# 入力したコマンドが存在せず、かつディレクトリ名と一致するなら、ディレクトリに cd する
+# 例： /usr/bin と入力すると /usr/bin ディレクトリに移動
+setopt auto_cd
+
+# ↑を設定すると、 .. とだけ入力したら1つ上のディレクトリに移動できるので……
+# 2つ上、3つ上にも移動できるようにする
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+### History ###
+HISTFILE=~/.zsh_history   # ヒストリを保存するファイル
+HISTSIZE=100000            # メモリに保存されるヒストリの件数
+SAVEHIST=100000            # 保存されるヒストリの件数
+
 

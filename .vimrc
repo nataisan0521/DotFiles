@@ -1,5 +1,4 @@
-" :TODO インデント整理
-
+" :TODO インデント整理 
 if has('vim_starting')
     set rtp+=~/.vim/plugged/vim-plug
     if !isdirectory(expand('~/.vim/plugged/vim-plug'))
@@ -154,8 +153,11 @@ nnoremap ; :
 syntax enable
 set laststatus=2
 set t_Co=256
+let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+let g:solarized_contrast="high"
 set background=dark
-colorscheme solarized
+colorscheme solarized 
 
 if !exists('g:neocomplete#sources#omni#input_patterns')
     let g:neocomplete#sources#omni#input_patterns  =  {}
