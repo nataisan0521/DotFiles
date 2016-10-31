@@ -51,3 +51,37 @@ inoremap <buffer> <expr> ( smartchr#loop('()', ' ()', '(')
 inoremap <buffer> <expr> { smartchr#loop('{}', ' {}', '{<NL><NL>}')
 
 
+if !exists('g:neocomplete#sources#omni#input_patterns')
+    let g:neocomplete#sources#omni#input_patterns =  {}
+endif
+
+let g:neocomplete#sources#omni#input_patterns.cs = '.*[^ = \);]'
+
+autocmd FileType cs nnoremap gd :OmniSharpGotoDefinition<cr>
+autocmd FileType cs nnoremap <leader>fi :OmniSharpFindImplementations<cr>
+autocmd FileType cs nnoremap <leader>ft :OmniSharpFindType<cr>
+autocmd FileType cs nnoremap <leader>fs :OmniSharpFindSymbol<cr>
+autocmd FileType cs nnoremap <leader>fu :OmniSharpFindUsages<cr>
+autocmd FileType cs nnoremap <leader>fm :OmniSharpFindMembers<cr>
+
+autocmd FileType cs nnoremap <leader>x  :OmniSharpFixIssue<cr>
+autocmd FileType cs nnoremap <leader>fx :OmniSharpFixUsings<cr>
+autocmd FileType cs nnoremap <leader>tt :OmniSharpTypeLookup<cr>
+autocmd FileType cs nnoremap <leader>d  :OmniSharpDocumentation<cr>
+
+autocmd FileType cs nnoremap <C-K> :OmniSharpNavigateUp<cr>
+autocmd FileType cs nnoremap <C-J> :OmniSharpNavigateDown<cr>
+
+autocmd FileType cs nnoremap <leader>rn :OmniSharpRename<cr>
+autocmd FileType cs nnoremap <leader>cf :OmniSharpCodeFormat<cr>
+autocmd FileType cs nnoremap <leader>rl :OmniSharpReloadSolution<cr>
+
+" emmet
+let g:user_emmet_mode  =  'i'
+let g:use_emmet_complete_tag  =  1
+let g:user_emmet_settings  =  {
+\   'variables': {
+\     'lang': "ja"
+\   }, 
+\   'indentation': '    '
+\ }

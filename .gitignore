@@ -4,3 +4,5 @@
 .emacs.d/irony
 .emacs.d/site-lisp
 .emacs.d/*.elc
+.vim/bundle
+.vim/plugged
