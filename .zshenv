@@ -12,7 +12,6 @@ export SVN_EDITOR="${EDITOR}"
 export GIT_EDITOR="${EDITOR}"
 
 export PATH="$HOME/bin:$PATH"
-eval "$(anyenv init -)"
 export GOPATH=$HOME
 
 export PERCOL=$HOME/bin/peco
