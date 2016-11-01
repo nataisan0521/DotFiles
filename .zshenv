@@ -17,4 +17,7 @@ export GOPATH=$HOME
 export PERCOL=$HOME/bin/peco
 
 export ZPLUG_HOME=$HOME/src/github.com/zplug/zplug
-export TERM = xterm-256color
+
+export PATH="$HOME/src/github.com/riywo/anyenv/bin:$PATH"
+export ANYENV_ROOT=/home/natai/src/github.com/riywo/anyenv
+eval "$(anyenv init -)"
