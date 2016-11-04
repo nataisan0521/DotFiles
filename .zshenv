@@ -21,3 +21,7 @@ export ZPLUG_HOME=$HOME/src/github.com/zplug/zplug
 export PATH="$HOME/src/github.com/riywo/anyenv/bin:$PATH"
 export ANYENV_ROOT=/home/natai/src/github.com/riywo/anyenv
 eval "$(anyenv init -)"
+for D in `ls $ANYENV_ROOT/envs`
+do
+    export PATH="$ANYENV_ROOT/envs/$D/shims:PATH"
+done
