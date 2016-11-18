@@ -6,10 +6,11 @@ nnoremap j gj
 nnoremap k gk
 
 " use Dvorak
-noremap d h
+
+noremap <C-d> h
 noremap h j
 noremap t k
-noremap n l
+noremap <C-n> l
 
 " 矢印キーを無効にする
 noremap <Up> <Nop>
