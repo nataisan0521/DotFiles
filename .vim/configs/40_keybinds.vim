@@ -5,6 +5,12 @@ let mapleader = "\<Space>"
 nnoremap j gj
 nnoremap k gk
 
+" use Dvorak
+noremap d h
+noremap h j
+noremap t k
+noremap n l
+
 " 矢印キーを無効にする
 noremap <Up> <Nop>
 noremap <Down> <Nop>
