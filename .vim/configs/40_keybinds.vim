@@ -21,14 +21,14 @@ inoremap <Down> <Nop>
 inoremap <Left> <Nop>
 
 nnoremap s <Nop>
-nnoremap sj <C-w>j
-nnoremap sk <C-w>k
-nnoremap sl <C-w>l
-nnoremap sh <C-w>h
-nnoremap sJ <C-w>J
-nnoremap sK <C-w>K
-nnoremap sL <C-w>L
-nnoremap sH <C-w>H
+nnoremap sh <C-w>j
+nnoremap st <C-w>k
+nnoremap sn <C-w>l
+nnoremap sd <C-w>h
+nnoremap sH <C-w>J
+nnoremap sT <C-w>K
+nnoremap sN <C-w>L
+nnoremap sD <C-w>H
 nnoremap sn gt
 nnoremap sp gT
 nnoremap sr <C-w>r
