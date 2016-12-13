@@ -1,1 +1,0 @@
-(setup-flycheck-d-unittest)

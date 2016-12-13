@@ -1,8 +1,0 @@
-(global-company-mode 1)
-(global-set-key (kbd "C-M-i") 'company-complete)
-(setq company-idle-delay 0)
-(define-key company-active-map (kbd "C-n") 'company-select-next)
-(define-key company-active-map (kbd "C-p") 'company-select-previous)
-(define-key company-search-map (kbd "C-n") 'company-select-next)
-(define-key company-search-map (kbd "C-p") 'company-select-previous)
-(define-key company-active-map (kbd "<tab>") 'company-complete-selection)
