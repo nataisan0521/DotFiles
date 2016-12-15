@@ -68,10 +68,8 @@ set wildmode=list:longest
 
 syntax enable
 set t_co=256
-let g:solarized_termtrans=1
-let g:solarized_contrast="high"
 set background=dark
-colorscheme solarized
+colorscheme dracula
 
 "SpaceをLeaderにする
 let mapleader = "\<Space>"
@@ -138,3 +136,23 @@ set wrapscan
 set hlsearch
 " ESC連打でハイライト解除
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
+
+let g:lightline = { 
+    \ 'colorscheme': 'Dracula',
+    \ 'component': {'readonly': '%{&readonly?"⭤":""}'}, 
+    \ 'mode_map': {'c': 'NORMAL'}, 
+    \ 'active': {'left': [['mode','paste'],['fugiitive','filename']]},
+    \ 'component_function':{'mode': 'LightLineMode' },
+    \ 'separator': {'left': "\ue0b0", 'right': "\ue0b2 "},  
+    \ 'subseparator': {'left': "\ue0b1", 'right': "\ue0b3"}
+    \ }
+function! LightLineMode()
+    return  &ft == 'unite' ? 'Unite' :
+        \ &ft == 'vimfiler' ? 'VimFiler' :
+        \ &ft == 'denite' ? 'Denite' :
+        \ &ft == 'vimshell' ? 'VimShell' :
+        \winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
+
+

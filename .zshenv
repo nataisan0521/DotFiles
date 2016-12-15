@@ -23,5 +23,9 @@ export ANYENV_ROOT=/home/natai/src/github.com/riywo/anyenv
 eval "$(anyenv init -)"
 for D in `ls $ANYENV_ROOT/envs`
 do
-    export PATH="$ANYENV_ROOT/envs/$D/shims:PATH"
+    export PATH="$ANYENV_ROOT/envs/$D/shims:$PATH"
 done
+
+eval "$(pyenv virtualenv-init -)"
+
+export PATH="$HOME/.local/bin/:$PATH"

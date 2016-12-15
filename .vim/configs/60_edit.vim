@@ -33,22 +33,13 @@ inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
 " neosnippet
-let g:neosnippet#snippets_directory='~/.vim/dein/repos/github.com/Shougo/neosnippet-snippets/neosnippets'
+let g:neosnippet#snippets_directory='~/.vim/plugged/neosnippet-snippets/neosnippet'
 imap <C-k>  <Plug>(neosnippet_expand_or_jump)
 smap <C-k>  <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>  <Plug>(neosnippet_expand_target)
 
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "<TAB>"
-
-" smartchr
-inoremap <buffer> <expr> = smartchr#loop(' = ', ' == ', '=')
-inoremap <buffer> <expr> + smartchr#loop(' + ', '+')
-inoremap <buffer> <expr> - smartchr#loop(' - ', '-')
-inoremap <buffer> <expr> , smartchr#loop(', ', ',')
-inoremap <buffer> <expr> . smartchr#loop('.', '<%=  %>', '<%  %>')
-inoremap <buffer> <expr> ( smartchr#loop('()', ' ()', '(')
-inoremap <buffer> <expr> { smartchr#loop('{}', ' {}', '{<NL><NL>}')
 
 
 if !exists('g:neocomplete#sources#omni#input_patterns')

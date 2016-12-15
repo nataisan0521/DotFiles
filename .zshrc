@@ -73,6 +73,7 @@ zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
 zplug "peco/peco", as:command, from:gh-r, use:"*linux_amd64*"
 zplug "b4b4r07/dotfiles", as:command, use:bin/peco-tmux
 zplug "b4b4r07/dotfiles", as:command, use:bin/git-get
+zplug "dracula/zsh", as:theme
 
 # check コマンドで未インストール項目があるかどうか verbose にチェックし
 # false のとき(つまり未インストール項目がある)y/N プロンプトで
@@ -127,7 +128,9 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完時に大文字小�
 
 alias ...='cd ../..'
 alias ....='cd ../../..'
-
+alias g='git'
+alias s='git status --short --branch'
+alias p='pacman'
 alias vi='nvim'
 alias vim='nvim'
 alias ll='ls -la --color=auto'
@@ -150,27 +153,29 @@ export CLICOLOR=true
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 
-### Prompt ###
-# プロンプトに色を付ける
-autoload -U colors; colors
-autoload -Uz vcs_info  
-setopt prompt_subst
-# 一般ユーザ時
-zstyle ':vcs_info:*' formats '%s][* %F{green}%b%f'
-zstyle ':vcs_info:*' actionformats '%s][* %F{green}%b%f(%F{red}%a%f)'
-precmd() { vcs_info }
-
-PROMPT='[%n@%m]%#' # 通常のプロンプト
-PROMPT2='%{${fg[cyan]}%}%_> %{${reset_color}%}'  # セカンダリのプロンプト(コマンドが2行以上の時に表示される)
-RPROMPT='[${vcs_info_msg_0_}]%{${fg[green]}%}[%c]%{${reset_color}%}'  # 右側のプロンプト
-SPROMPT='%{${fg[yellow]}%}%r is correct? [Yes, No, Abort, Edit]:%{${reset_color}%}'  # スペル訂正用プロンプト
-# SSHログイン時のプロンプト
-[ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
-  PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}"
-;
+# ### Prompt ###
+# # プロンプトに色を付ける
+# autoload -U colors; colors
+# autoload -Uz vcs_info  
+# setopt prompt_subst
+# # 一般ユーザ時
+# zstyle ':vcs_info:*' formats '%s][* %F{green}%b%f'
+# zstyle ':vcs_info:*' actionformats '%s][* %F{green}%b%f(%F{red}%a%f)'
+# precmd() { vcs_info }
+# 
+# PROMPT='[%n@%m]%#' # 通常のプロンプト
+# PROMPT2='%{${fg[cyan]}%}%_> %{${reset_color}%}'  # セカンダリのプロンプト(コマンドが2行以上の時に表示される)
+# RPROMPT='[${vcs_info_msg_0_}]%{${fg[green]}%}[%c]%{${reset_color}%}'  # 右側のプロンプト
+# SPROMPT='%{${fg[yellow]}%}%r is correct? [Yes, No, Abort, Edit]:%{${reset_color}%}'  # スペル訂正用プロンプト
+# # SSHログイン時のプロンプト
+# [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
+#   PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}"
+# ;
 
 bindkey -v
 
 bindkey -M vicmd 'gg' beginning-of-line
 bindkey -M vicmd 'G'  end-of-line
+
+alias gr='cd $(ghq root)/$(ghq list | peco)'
 

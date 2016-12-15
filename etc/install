@@ -1,0 +1,39 @@
+#!/bin/sh
+
+DOTDIR="${HOME}/.dotfiles"
+TARBALL="https://github.com/nataisan0521/dotfiles/tarball/master"
+REMOTE_URL="https://github.com/nataisan0521/dotfiles.git"
+
+if [ ! -d ${DOTDIR} ]; then
+    echo "Downloading dotfiles..."
+
+    if type "git" > /dev/null 2>&1; then
+        git clone --recursive "${REMOTE_URL}" "${DOTDIR}"
+    elif has "curl" || has "wget"; then
+        if has "curl"; then
+            curl -L "${TARBALL}"
+        elif has "wget"; then
+            wget -O - "${TARBALL}"
+        fi | tar xv -
+    mv -f dotfiles-master "${DOTDIR}"
+    else
+        die "curl or wget required"
+    fi
+else 
+    echo "You Have dotfiles"
+fi
+
+cd ${DOTDIR}
+
+
+for f in .??*
+do
+  # 無視したいファイルやディレクトリはこんな風に追加してね
+  [[ ${f} = ".git" ]] && continue
+  [[ ${f} = ".gitignore" ]] && continue
+  ln -snfv ${DOTDIR}/${f} ${HOME}/${f}
+done
+mkdir -p ${HOME}/.config/nvim
+ln -snfv ${DOTDIR}/init.vim ${HOME}/.config/nvim/init.vim
+ln -snfv ${DOTDIR}/dein.toml ${HOME}/.config/nvim/dein.toml
+echo $(tput setaf 2)Deploy dotfiles complete!. ✔︎$(tput sgr0)

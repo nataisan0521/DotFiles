@@ -24,7 +24,7 @@ set background=dark
 colorscheme solarized 
 
 " lightline.vim
-  let g:lightline = { 'colorscheme': 'wombat','component': {'readonly': '%{&readonly?"⭤":""}'}, 'mode_map': {'c': 'NORMAL'}, 'active': {'left': [['mode','paste'],['fugiitive','filename']]},'component_function':{'mode': 'LightLineMode' } }
+  let g:lightline = { 'colorscheme': 'solarized','component': {'readonly': '%{&readonly?"⭤":""}'}, 'mode_map': {'c': 'NORMAL'}, 'active': {'left': [['mode','paste'],['fugiitive','filename']]},'component_function':{'mode': 'LightLineMode' } }
 
   function! LightLineMode()
      return  &ft == 'unite' ? 'Unite' :

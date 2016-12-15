@@ -29,7 +29,7 @@ hook_add  = '''
     nmap <silent> <C-u><C-r> :<C-u>Denite -resume<CR>
     nmap <silent> <C-u>; :<C-u>Denite -resume -immediately -select=+1<CR>
     nmap <silent> <C-u>- :<C-u>Denite -resume -immediately -select=-1<CR>
-    nmap <silent> <C-u><C-d> :<C-u>call denite#start([{'name': 'file_rec', 'args': ['~/src/github.com/nataisan0521/dotfiles']}])<CR>
+    nmap <silent> <C-u><C-d> :<C-u>call denite#start([{'name': 'file_rec', 'args': ['~/.dotfiles']}])<CR>
 '''
 
 [[plugins]]
@@ -58,19 +58,10 @@ repo      = 'tomasr/molokai'
 repo      = 'altercation/vim-colors-solarized'
 
 [[plugins]]
+repo      = 'dracula/vim'
+
+[[plugins]]
 repo      = 'itchyny/lightline.vim'
-hook_add  = '''
-    let g:lightline = { 'colorscheme': 'solarized','component': {'readonly': '%{&readonly?"⭤":""}'}, 'mode_map': {'c': 'NORMAL'}, 'active': {'left': [['mode','paste'],['fugiitive','filename']]},'component_function':{'mode': 'LightLineMode' } }
-
-function! LightLineMode()
-    return  &ft == 'unite' ? 'Unite' :
-        \ &ft == 'vimfiler' ? 'VimFiler' :
-        \ &ft == 'denite' ? 'Denite' :
-        \ &ft == 'vimshell' ? 'VimShell' :
-        \winwidth(0) > 60 ? lightline#mode() : ''
-endfunction
-
-'''
 
 
 [[plugins]]
@@ -80,10 +71,6 @@ hook_add  = '''
     nmap <Leader>mn  :MemoNew<CR>
     nmap <Leader>ml :<C-u>call denite#start([{'name': 'file_rec', 'args': [g:memolist_path]}])<CR>
 ''' 
-
-[[plugins]]
-repo      = 'kana/vim-smartchr'
-on_i      =1
 
 [[plugins]]
 repo      = 'Shougo/neomru.vim'
@@ -270,3 +257,4 @@ hook_source = '''
         call s:set_lexima({'at': begin.'\%#'.end, 'char': '<BS>', 'input': '<BS><Del>'})
     endfor
 '''
+
