@@ -47,7 +47,7 @@ set hidden
 " 入力中のコマンドをステータスに表示する
 set showcmd
 
-let g:python3_host_prog = expand('$HOME') . '/src/github.com/riywo/anyenv/envs/pyenv/versions/neovim3/bin/python'
+let g:python3_host_prog = expand('$HOME') . '/.anyenv/envs/pyenv/versions/neovim3/bin/python'
 
 " 行番号の表示
 set number
@@ -69,7 +69,10 @@ set wildmode=list:longest
 syntax enable
 set t_co=256
 set background=dark
-colorscheme dracula
+let g:solarized_termtrans=1
+" let g:solarized_contrast="high"
+colorscheme solarized
+" highlight Normal ctermbg=none
 
 "SpaceをLeaderにする
 let mapleader = "\<Space>"
@@ -124,8 +127,7 @@ set shiftwidth=4
 set clipboard=unnamed
 
 " 検索系
-" 検索文字列が小文字の場合は大文字小文字を区別なく検索する
-set ignorecase
+" 検索文字列が小文字の場合は大文字小文字を区別なく検索する set ignorecase
 " 検索文字列に大文字が含まれている場合は区別して検索する
 set smartcase
 " 検索文字列入力時に順次対象文字列にヒットさせる
@@ -138,13 +140,11 @@ set hlsearch
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
 let g:lightline = { 
-    \ 'colorscheme': 'Dracula',
+    \ 'colorscheme': 'solarized',
     \ 'component': {'readonly': '%{&readonly?"⭤":""}'}, 
     \ 'mode_map': {'c': 'NORMAL'}, 
     \ 'active': {'left': [['mode','paste'],['fugiitive','filename']]},
     \ 'component_function':{'mode': 'LightLineMode' },
-    \ 'separator': {'left': "\ue0b0", 'right': "\ue0b2 "},  
-    \ 'subseparator': {'left': "\ue0b1", 'right': "\ue0b3"}
     \ }
 function! LightLineMode()
     return  &ft == 'unite' ? 'Unite' :
@@ -154,5 +154,5 @@ function! LightLineMode()
         \winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
-
+let g:airline_theme = 'dark'
 

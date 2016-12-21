@@ -16,16 +16,15 @@ export GOPATH=$HOME
 
 export PERCOL=$HOME/bin/peco
 
-export ZPLUG_HOME=$HOME/src/github.com/zplug/zplug
+export ZPLUG_HOME=$HOME/.zplug
 
-export PATH="$HOME/src/github.com/riywo/anyenv/bin:$PATH"
-export ANYENV_ROOT=/home/natai/src/github.com/riywo/anyenv
+export PATH="$HOME/.anyenv/bin:$PATH"
 eval "$(anyenv init -)"
-for D in `ls $ANYENV_ROOT/envs`
+for D in `ls $HOME/.anyenv/envs`
 do
-    export PATH="$ANYENV_ROOT/envs/$D/shims:$PATH"
+    export PATH="$HOME/.anyenv/envs/$D/shims:$PATH"
 done
 
 eval "$(pyenv virtualenv-init -)"
 
-export PATH="$HOME/.local/bin/:$PATH"
+# export PATH="$HOME/.local/bin:$PATH"

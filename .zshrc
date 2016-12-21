@@ -66,14 +66,13 @@ zplug "mollifier/anyframe"
 zplug "mollifier/cd-gitroot"
 zplug "b4b4r07/enhancd", use:enhancd.sh
 zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-syntax-highlighting", nice:10
+zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-completions"
 zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
 zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
 zplug "peco/peco", as:command, from:gh-r, use:"*linux_amd64*"
 zplug "b4b4r07/dotfiles", as:command, use:bin/peco-tmux
-zplug "b4b4r07/dotfiles", as:command, use:bin/git-get
-zplug "dracula/zsh", as:theme
+zplug "bhilburn/powerlevel9k", as:theme
 
 # check コマンドで未インストール項目があるかどうか verbose にチェックし
 # false のとき(つまり未インストール項目がある)y/N プロンプトで
@@ -87,6 +86,8 @@ fi
 
 # プラグインを読み込み、コマンドにパスを通す
 zplug load --verbose
+
+clear
 
 setopt auto_pushd
 setopt notify

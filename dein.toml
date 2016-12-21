@@ -57,19 +57,23 @@ repo      = 'tomasr/molokai'
 [[plugins]]
 repo      = 'altercation/vim-colors-solarized'
 
-[[plugins]]
-repo      = 'dracula/vim'
 
 [[plugins]]
 repo      = 'itchyny/lightline.vim'
+
+#[[plugins]]
+#repo      = 'vim-airline/vim-airline'
+#
+#[[plugins]]
+#repo      = 'vim-airline/vim-airline-themes' 
 
 
 [[plugins]]
 repo      = 'glidenote/memolist.vim'
 depend    = ['unite.vim']
 hook_add  = '''
-    nmap <Leader>mn  :MemoNew<CR>
-    nmap <Leader>ml :<C-u>call denite#start([{'name': 'file_rec', 'args': [g:memolist_path]}])<CR>
+    nmap mn  :MemoNew<CR>
+    nmap ml :<C-u>call denite#start([{'name': 'file_rec', 'args': [g:memolist_path]}])<CR>
 ''' 
 
 [[plugins]]
@@ -97,8 +101,8 @@ hook_source = '''
     nmap <silent> <Leader>RC :<C-u>Denite<Space>rails/config<CR>
 '''
 
-[[plugins]]
-repo      = 'tpope/vim-dispatch'
+# [[plugins]]
+# repo      = 'tpope/vim-dispatch'
 
 # インサートモードに入ったら読み込む
 
@@ -165,45 +169,45 @@ on_i      = 1
 repo      = 'cespare/vim-toml'
 on_ft     = ['toml']
 
-[[plugins]]
-repo      = 'OmniSharp/omnisharp-vim'
-on_ft     = ['cs']
-hook_post_update = '''
-    if dein#util#_is_windows()
-        let omnicmd = 'msbuild server/OmniSharp.sln'
-    elseif dein#util#_is_cygwin()
-        let omnicmd = 'msbuild server/OmniSharp.sln'
-    else 
-        let omnicmd = 'xbuild server/OmniSharp.sln'
-    endif
-    let g:dein#plugin.build = omnicmd
-'''
-hook_source = '''
-    nnoremap gd :OmniSharpGotoDefinition<cr>
-    nnoremap <leader>fi :OmniSharpFindImplementations<cr>
-    nnoremap <leader>ft :OmniSharpFindType<cr>
-    nnoremap <leader>fs :OmniSharpFindSymbol<cr>
-    nnoremap <leader>fu :OmniSharpFindUsages<cr>
-    nnoremap <leader>fm :OmniSharpFindMembers<cr>
-    
-    nnoremap <leader>x  :OmniSharpFixIssue<cr>
-    nnoremap <leader>fx :OmniSharpFixUsings<cr>
-    nnoremap <leader>tt :OmniSharpTypeLookup<cr>
-    nnoremap <leader>d  :OmniSharpDocumentation<cr>
-    
-    nnoremap <C-K> :OmniSharpNavigateUp<cr>
-    nnoremap <C-J> :OmniSharpNavigateDown<cr>
-    
-    nnoremap <leader>rn :OmniSharpRename<cr>
-    nnoremap <leader>cf :OmniSharpCodeFormat<cr>
-    nnoremap <leader>rl :OmniSharpReloadSolution<cr>
-'''
-
-[[plugins]]
-repo     = 'https://gitlab.com/mixedCase/deoplete-omnisharp.git'
-on_ft    = ['cs']
-on_i     = 1
-depends  = ['deoplete.nvim', 'omnisharp-vim']
+#[[plugins]]
+#repo      = 'OmniSharp/omnisharp-vim'
+#on_ft     = ['cs']
+#hook_post_update = '''
+#    if dein#util#_is_windows()
+#        let omnicmd = 'msbuild server/OmniSharp.sln'
+#    elseif dein#util#_is_cygwin()
+#        let omnicmd = 'msbuild server/OmniSharp.sln'
+#    else 
+#        let omnicmd = 'xbuild server/OmniSharp.sln'
+#    endif
+#    let g:dein#plugin.build = omnicmd
+#'''
+#hook_source = '''
+#    nnoremap gd :OmniSharpGotoDefinition<cr>
+#    nnoremap <leader>fi :OmniSharpFindImplementations<cr>
+#    nnoremap <leader>ft :OmniSharpFindType<cr>
+#    nnoremap <leader>fs :OmniSharpFindSymbol<cr>
+#    nnoremap <leader>fu :OmniSharpFindUsages<cr>
+#    nnoremap <leader>fm :OmniSharpFindMembers<cr>
+#    
+#    nnoremap <leader>x  :OmniSharpFixIssue<cr>
+#    nnoremap <leader>fx :OmniSharpFixUsings<cr>
+#    nnoremap <leader>tt :OmniSharpTypeLookup<cr>
+#    nnoremap <leader>d  :OmniSharpDocumentation<cr>
+#    
+#    nnoremap <C-K> :OmniSharpNavigateUp<cr>
+#    nnoremap <C-J> :OmniSharpNavigateDown<cr>
+#    
+#    nnoremap <leader>rn :OmniSharpRename<cr>
+#    nnoremap <leader>cf :OmniSharpCodeFormat<cr>
+#    nnoremap <leader>rl :OmniSharpReloadSolution<cr>
+#'''
+#
+#[[plugins]]
+#repo     = 'https://gitlab.com/mixedCase/deoplete-omnisharp.git'
+#on_ft    = ['cs']
+#on_i     = 1
+#depends  = ['deoplete.nvim', 'omnisharp-vim']
 
 [[plugins]]
 repo     = 'zchee/deoplete-clang'
