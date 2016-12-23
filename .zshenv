@@ -6,7 +6,7 @@ export KCODE=u           # KCODEにUTF-8を設定
 export AUTOFEATURE=true  # autotestでfeatureを動かす
 
 # Editor
-export EDITOR=vim
+export EDITOR=nvim
 export CVSEDITOR="${EDITOR}"
 export SVN_EDITOR="${EDITOR}"
 export GIT_EDITOR="${EDITOR}"
@@ -25,6 +25,6 @@ do
     export PATH="$HOME/.anyenv/envs/$D/shims:$PATH"
 done
 
-eval "$(pyenv virtualenv-init -)"
+# eval "$(pyenv virtualenv-init -)"
 
 # export PATH="$HOME/.local/bin:$PATH"

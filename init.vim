@@ -44,8 +44,7 @@ set noswapfile
 set autoread
 " バッファが編集中でもその他のファイルが開けるように
 set hidden
-" 入力中のコマンドをステータスに表示する
-set showcmd
+" 入力中のコマンドをステータスに表示する set showcmd
 
 let g:python3_host_prog = expand('$HOME') . '/.anyenv/envs/pyenv/versions/neovim3/bin/python'
 
@@ -69,10 +68,10 @@ set wildmode=list:longest
 syntax enable
 set t_co=256
 set background=dark
-let g:solarized_termtrans=1
+" let g:solarized_termtrans=1
 " let g:solarized_contrast="high"
-colorscheme solarized
-" highlight Normal ctermbg=none
+colorscheme molokai
+highlight Normal ctermbg=none
 
 "SpaceをLeaderにする
 let mapleader = "\<Space>"
@@ -140,7 +139,7 @@ set hlsearch
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
 let g:lightline = { 
-    \ 'colorscheme': 'solarized',
+    \ 'colorscheme': 'molokai',
     \ 'component': {'readonly': '%{&readonly?"⭤":""}'}, 
     \ 'mode_map': {'c': 'NORMAL'}, 
     \ 'active': {'left': [['mode','paste'],['fugiitive','filename']]},

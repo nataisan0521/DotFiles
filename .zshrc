@@ -72,7 +72,7 @@ zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
 zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
 zplug "peco/peco", as:command, from:gh-r, use:"*linux_amd64*"
 zplug "b4b4r07/dotfiles", as:command, use:bin/peco-tmux
-zplug "bhilburn/powerlevel9k", as:theme
+zplug "themes/agnoster", from:oh-my-zsh
 
 # check コマンドで未インストール項目があるかどうか verbose にチェックし
 # false のとき(つまり未インストール項目がある)y/N プロンプトで
