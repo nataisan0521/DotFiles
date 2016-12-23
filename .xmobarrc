@@ -1,0 +1,15 @@
+
+Config { font = "xft:Migu 1M:size=13"
+       , bgColor        = "black"
+       , fgColor        = "grey"
+       , position       = Bottom 
+       , lowerOnStart   = True                  −− いらなそうなので消した
+       , overrideRedirect    = False            -- こっちのがいりそう。ドックアプリとして認識させる
+       , commands       = [
+                        Run StdinReader
+                        ,Run Date "%H:%M  %a %b %_d" "date" 50 
+                        ]
+       , sepChar        = "%"
+       , alignSep       = "}{"
+       , template       = "%StdinReader% }{ <fc=#89b6e2>%date%</fc>"
+       }
