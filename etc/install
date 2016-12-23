@@ -1,13 +1,18 @@
 #!/bin/sh
 
 DOTDIR="${HOME}/.dotfiles"
+PREZTODIR="${DOTDIR}/.zprezto/runcoms"
 TARBALL="https://github.com/nataisan0521/dotfiles/tarball/master"
 REMOTE_URL="https://github.com/nataisan0521/dotfiles.git"
+
+has() {
+  type "$1" > /dev/null 2>&1
+}
 
 if [ ! -d ${DOTDIR} ]; then
     echo "Downloading dotfiles..."
 
-    if type "git" > /dev/null 2>&1; then
+    if has "git" then
         git clone --recursive "${REMOTE_URL}" "${DOTDIR}"
     elif has "curl" || has "wget"; then
         if has "curl"; then
@@ -36,4 +41,12 @@ done
 mkdir -p ${HOME}/.config/nvim
 ln -snfv ${DOTDIR}/init.vim ${HOME}/.config/nvim/init.vim
 ln -snfv ${DOTDIR}/dein.toml ${HOME}/.config/nvim/dein.toml
+
+cd ${PREZTODIR}
+for f in ??*
+do
+  [[ ${f} = "README.md" ]] && continue
+  ln -snfv ${PREZTODIR}/${f} ${HOME}/${f}
+done
+
 echo $(tput setaf 2)Deploy dotfiles complete!. ✔︎$(tput sgr0)
