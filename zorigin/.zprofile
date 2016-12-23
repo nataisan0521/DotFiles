@@ -1,0 +1,3 @@
+#Archlinux only
+source ~/.zshenv
+
