@@ -1,7 +1,7 @@
 #!/bin/sh
 
 DOTDIR="${HOME}/.dotfiles"
-PREZTODIR="${DOTDIR}/.zprezto/runcoms"
+PREZTODIR="${HOME}/.zprezto/runcoms"
 TARBALL="https://github.com/nataisan0521/dotfiles/tarball/master"
 REMOTE_URL="https://github.com/nataisan0521/dotfiles.git"
 
@@ -28,21 +28,27 @@ else
     echo "You Have dotfiles"
 fi
 
+if has "pacman" then
+    sudo pacman -S git tmux zsh neovim
+fi
+
 cd ${DOTDIR}
 
 
-for f in .??*
-do
-  # 無視したいファイルやディレクトリはこんな風に追加してね
-  [[ ${f} = ".git" ]] && continue
-  [[ ${f} = ".gitignore" ]] && continue
-  ln -snfv ${DOTDIR}/${f} ${HOME}/${f}
-done
+ for f in .??*
+ do
+   # 無視したいファイルやディレクトリはこんな風に追加してね
+   [[ ${f} = ".git" ]] && continue
+   [[ ${f} = ".gitignore" ]] && continue
+   [[ ${f} = ".gitmodule" ]] && continue
+   ln -snfv ${DOTDIR}/${f} ${HOME}/${f}
+ done
 mkdir -p ${HOME}/.config/nvim
 ln -snfv ${DOTDIR}/init.vim ${HOME}/.config/nvim/init.vim
 ln -snfv ${DOTDIR}/dein.toml ${HOME}/.config/nvim/dein.toml
 
 cd ${PREZTODIR}
+git checkout myconfig
 for f in ??*
 do
   [[ ${f} = "README.md" ]] && continue
