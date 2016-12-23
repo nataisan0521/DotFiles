@@ -46,7 +46,7 @@ cd ${PREZTODIR}
 for f in ??*
 do
   [[ ${f} = "README.md" ]] && continue
-  ln -snfv ${PREZTODIR}/${f} ${HOME}/${f}
+  ln -snfv ${PREZTODIR}/${f} ${HOME}/.${f}
 done
 
 echo $(tput setaf 2)Deploy dotfiles complete!. ✔︎$(tput sgr0)
