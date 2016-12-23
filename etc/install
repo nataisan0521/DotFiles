@@ -29,7 +29,7 @@ else
 fi
 
 if has "pacman" then
-    sudo pacman -S git tmux zsh neovim
+    sudo pacman -S git tmux zsh neovim figlet
 fi
 
 cd ${DOTDIR}
