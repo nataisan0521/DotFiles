@@ -1,8 +1,5 @@
-.emacs.d/el-get
-.emacs.d/elpa
-.emacs.d/auto-save-list
-.emacs.d/irony
-.emacs.d/site-lisp
-.emacs.d/*.elc
-.vim/bundle
 .vim/plugged
+.xmonad/xmonad.hi 
+.xmonad/xmonad.o
+.xmonad/xmonad-x86_64_linux
+.xmonad/xmonad.errors
