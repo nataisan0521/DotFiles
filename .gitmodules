@@ -1,3 +1,6 @@
 [submodule ".zprezto"]
 	path = .zprezto
 	url = https://github.com/nataisan0521/prezto.git
+[submodule ".emacs.d"]
+	path = .emacs.d
+	url = https://github.com/nataisan0521/spacemacs.git

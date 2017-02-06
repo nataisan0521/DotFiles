@@ -5,32 +5,75 @@ PREZTODIR="${HOME}/.zprezto/runcoms"
 TARBALL="https://github.com/nataisan0521/dotfiles/tarball/master"
 REMOTE_URL="https://github.com/nataisan0521/dotfiles.git"
 
-has() {
-  type "$1" > /dev/null 2>&1
-}
-
 if [ ! -d ${DOTDIR} ]; then
     echo "Downloading dotfiles..."
 
     if has "git" then
         git clone --recursive "${REMOTE_URL}" "${DOTDIR}"
-    elif has "curl" || has "wget"; then
-        if has "curl"; then
-            curl -L "${TARBALL}"
-        elif has "wget"; then
-            wget -O - "${TARBALL}"
-        fi | tar xv -
-    mv -f dotfiles-master "${DOTDIR}"
     else
-        die "curl or wget required"
+        curl -fsSLo ${HOME}/dotfiles.tar.gz ${DOT_TARBALL}
+        tar -zxf ${HOME}/dotfiles.tar.gz --strip-components 1 -C ${DOT_DIRECTORY}
+        rm -f ${HOME}/dotfiles.tar.gz
     fi
 else 
     echo "You Have dotfiles"
 fi
 
-if has "pacman" then
-    sudo pacman -S git tmux zsh neovim figlet
-fi
+tool_install() {
+    if   [ -e /etc/debian_version ] ||
+         [ -e /etc/debian_release ]; then
+        # Check Ubuntu or Debian
+        if [ -e /etc/lsb-release ]; then
+            # Ubuntu
+            sudo add-apt-repository ppa:jonathonf/vim -y
+            sudo apt update -y
+            sudo apt install -y vim tmux zsh git figlet 
+
+        else
+            # Debian
+            distri_name="debian"
+        fi
+    elif [ -e /etc/fedora-release ]; then
+        # Fedra
+        distri_name="fedora"
+    elif [ -e /etc/redhat-release ]; then
+        if [ -e /etc/oracle-release ]; then
+            # Oracle Linux
+            distri_name="oracle"
+        else
+            # Red Hat Enterprise Linux
+            distri_name="redhat"
+        fi
+    elif [ -e /etc/arch-release ]; then
+        # Arch Linux
+        distri_name="arch"
+        sudo pacman -S vim tmux zsh git figlet 
+    elif [ -e /etc/turbolinux-release ]; then
+        # Turbolinux
+        distri_name="turbol"
+    elif [ -e /etc/SuSE-release ]; then
+        # SuSE Linux
+        distri_name="suse"
+    elif [ -e /etc/mandriva-release ]; then
+        # Mandriva Linux
+        distri_name="mandriva"
+    elif [ -e /etc/vine-release ]; then
+        # Vine Linux
+        distri_name="vine"
+    elif [ -e /etc/gentoo-release ]; then
+        # Gentoo Linux
+        distri_name="gentoo"
+    else
+        # Other
+        echo "unkown distribution"
+        distri_name="unkown"
+    fi
+
+    git clone https://github.com/riywo/anyenv.git ${HOME}/.anyenv
+    curl -sL zplug.sh/installer | zsh
+
+
+}
 
 cd ${DOTDIR}
 
@@ -46,7 +89,7 @@ cd ${DOTDIR}
 mkdir -p ${HOME}/.config/nvim
 ln -snfv ${DOTDIR}/init.vim ${HOME}/.config/nvim/init.vim
 ln -snfv ${DOTDIR}/dein.toml ${HOME}/.config/nvim/dein.toml
-
+ln -snfv ${DOTDIR}/dein.toml ${HOME}/.dein.toml
 cd ${PREZTODIR}
 git checkout myconfig
 for f in ??*
@@ -56,3 +99,5 @@ do
 done
 
 echo $(tput setaf 2)Deploy dotfiles complete!. ✔︎$(tput sgr0)
+
+tool_install()
