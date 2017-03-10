@@ -50,7 +50,7 @@ set hidden
 " 行番号の表示
 set number
 " 行末の1文字先までカーソルを移動できるように
-set virtualedit=onemore
+" set virtualedit=onemore
 " オートインデント
 set autoindent
 " インデントはスマートインデント
@@ -154,3 +154,4 @@ endfunction
 
 let g:airline_theme = 'dark'
 
+nmap <Leader>v :source ~/.vimrc<CR>

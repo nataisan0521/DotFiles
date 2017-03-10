@@ -1,5 +1,5 @@
 
-set guifont=Ricty\ Regular\ 12
+set guifont=Myrica\ M\ M\ Bold\ 16
 set cmdheight=2  "コマンドラインの高さ(GUI使用時)
 "メニュー関係
 set winaltkeys=no "Alt+xでメニューをフォーカスしない

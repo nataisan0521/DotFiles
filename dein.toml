@@ -47,8 +47,8 @@ hook_source = '''
     let g:deoplete#sources#clang#clang_header = '/usr/include/clang/'
 '''
 
-[[plugins]]
-repo      = 'tpope/vim-fugitive'
+# [[plugins]]
+# repo      = 'tpope/vim-fugitive'
 
 [[plugins]]
 repo      = 'tomasr/molokai'
